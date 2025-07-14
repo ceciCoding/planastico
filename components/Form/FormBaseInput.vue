@@ -55,7 +55,7 @@ onMounted(() => {
 
 <template>
   <div class="base-input">
-    <BaseInputLabel 
+    <FormBaseInputLabel 
       :input-id="id"
       :label="props.label"
       :is-visible="props.isLabelVisible"

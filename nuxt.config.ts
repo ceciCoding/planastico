@@ -3,5 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/image'],
-  css: ['~/assets/css/main.css']
+  css: ['~/assets/css/main.css'],
+  postcss: {
+    plugins: {
+      'postcss-nested': {},
+      'autoprefixer': {}
+    }
+  }
 })
