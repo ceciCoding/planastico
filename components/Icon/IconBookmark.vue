@@ -1,3 +1,12 @@
+<script setup>
+defineProps({
+  filled: {
+    type: Boolean,
+    default: false
+  }
+})
+</script>
+
 <template>
   <svg
     width="15"
@@ -18,12 +27,3 @@
     />
   </svg>
 </template>
-
-<script setup>
-defineProps({
-  filled: {
-    type: Boolean,
-    default: false
-  }
-})
-</script>

@@ -22,6 +22,7 @@ const secondInput = ref("");
     <section>
       <h2>Icons</h2>
       <div class="icons-wrapper">
+        <IconPlanastico width="20" height="30"/>
         <IconBurguerMenu />
         <IconCalendar />
         <IconShare />
@@ -33,6 +34,20 @@ const secondInput = ref("");
         <IconChevron direction="up" />
         <IconChevron direction="down" />
         <IconChevron direction="right" />
+        <IconTrash />
+        <IconClose />
+        <IconCheck />
+        <IconSingleDatePlan />
+        <IconMultiDatesPlan />
+        <IconArrow />
+        <IconArrow direction="right" />
+        <IconUpload />
+        <IconCopy />
+        <IconCloseSmall />
+        <IconEmail />
+        <IconFilters />
+        <IconWorld />
+        <IconClock />
       </div>
     </section>
   </main>
