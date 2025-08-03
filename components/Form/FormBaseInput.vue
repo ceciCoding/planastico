@@ -1,64 +1,30 @@
 <script setup>
-import { nanoid } from 'nanoid';
+import { useUuid } from '@/composables/uuid';
 
 const props = defineProps({
   modelValue: {
     type: String,
     default: ''
   },
-  label: {
-    type: String,
+  field: {
+    type: Object,
     required: true
-  },
-  inputType: {
-    type: String,
-    default: 'text'
-  },
-  placeholder: {
-    type: String,
-    default: ''
-  },
-  isLabelVisible: {
-    type: Boolean,
-    default: true
-  },
-  roundedCorner: {
-    type: String,
-    default: 'right'
   },
   error: {
     type: String,
     default: ''
-  },
-  maxLength: {
-    type: Number,
-    default: 0
-  },
-  isCurrency: {
-    type: Boolean,
-    default: false
-  },
-  isErasable: {
-    type: Boolean,
-    default: false
   }
 });
 const emit = defineEmits(['update:model-value']);
-const id = ref('');
-
-onMounted(() => {
-  if (import.meta.client) {
-    id.value = nanoid();
-  }
-});
+const id = useUuid();
 </script>
 
 <template>
   <div class="base-input">
-    <FormBaseInputLabel 
+    <FormBaseInputLabel
       :input-id="id"
-      :label="props.label"
-      :is-visible="props.isLabelVisible"
+      :label="props.field.label.name"
+      :is-visible="props.field.label.isVisible"
     />
     <div class="base-input__wrapper">
       <input
@@ -66,28 +32,28 @@ onMounted(() => {
         :value="props.modelValue"
         class="base-input__input"
         :class="[
-          `base-input__input--${props.roundedCorner}`,
+          `base-input__input--${props.field.roundedCorner}`,
           {
             'base-input__input--has-error': props.error.length,
-            'base-input__input--has-trailing-icon': props.isCurrency || props.isErasable
+            'base-input__input--has-trailing-icon': props.field.isCurrency || props.field.isErasable
           }
         ]"
-        :type="props.inputType"
-        :placeholder="props.placeholder"
+        :type="props.field.inputType"
+        :placeholder="props.field.placeholder"
         @input="(e) => emit('update:model-value', e.target.value)"
       >
       <span
-        v-if="props.isCurrency"
+        v-if="props.field.isCurrency"
         class="base-input__currency"
       >
         €
       </span>
     </div>
     <span
-      v-if="props.maxLength && !props.error.length"
+      v-if="props.field.maxLength && !props.error.length"
       class="base-input__count"
     >
-      {{ props.modelValue.length }}/{{ props.maxLength }}
+      {{ props.modelValue.length }}/{{ props.field.maxLength }}
     </span>
     <span
       v-if="props.error.length"
@@ -110,10 +76,6 @@ onMounted(() => {
   width: 100%;
 }
 
-.base-input__label {
-  font-weight: 700;
-}
-
 .base-input__input {
   width: 100%;
   height: 50px;
@@ -124,7 +86,7 @@ onMounted(() => {
 }
 
 .base-input__input--left {
-  border-radius: 20px 0 0 0;
+  border-radius: 14px 0 0 0;
 }
 
 .base-input__input--right {

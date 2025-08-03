@@ -1,28 +1,95 @@
 <script setup>
-const firstInput = ref("hola");
-const secondInput = ref("");
+import FormBaseInput from "~/components/Form/FormBaseInput.vue";
+import FormSelect from "~/components/Form/FormSelect.vue";
+import FormTimepicker from "~/components/Form/Timepicker/FormTimepicker.vue";
+
+const fields = ref([
+  {
+    component: FormBaseInput,
+    modelValue: "hola",
+    fieldConfig: {
+      label: {
+        name: "Nombre",
+        isVisible: true,
+      },
+      inputType: "text",
+      placeholder: "Introduce tu nombre",
+      roundedCorner: "right",
+    },
+  },
+  {
+    component: FormBaseInput,
+    modelValue: "",
+    fieldConfig: {
+      label: {
+        name: "Precio",
+        isVisible: true,
+      },
+      inputType: "number",
+      placeholder: "Introduce el precio",
+      roundedCorner: "right",
+      isCurrency: true,
+      maxLength: 70,
+    },
+    error: "Este campo es requerido",
+  },
+  {
+    component: FormSelect,
+    modelValue: "granada",
+    fieldConfig: {
+      label: {
+        name: "Selecciona una ciudad",
+        isVisible: true,
+      },
+      options: [
+        {
+          label: "Madrid",
+          value: "madrid",
+        },
+        {
+          label: "Granada",
+          value: "granada",
+        },
+        {
+          label: "Murcia",
+          value: "murcia",
+        },
+      ],
+      roundedCorner: "right",
+    },
+    error: "",
+  },
+  {
+    component: FormTimepicker,
+    modelValue: "00:00 AM",
+    fieldConfig: {
+      label: {
+        name: "Inicio",
+        isVisible: true,
+      },
+    },
+  },
+]);
 </script>
 
 <template>
   <main>
     <h1>Componentes</h1>
-    <section>
+    <section class="form-section">
       <h2>Form</h2>
-      <FormBaseInput v-model="firstInput" label="Título del plan" :required="true" />
-      <FormBaseInput
-        v-model="secondInput"
-        label="Precio"
-        :required="true"
-        :max-length="70"
-        is-currency
-        input-type="number"
-        error="Este campo es requerido"
+      <component
+        v-for="(field, index) in fields"
+        :key="index"
+        :is="field.component"
+        v-model="field.modelValue"
+        :field="field.fieldConfig"
+        :error="field.error"
       />
     </section>
     <section>
       <h2>Icons</h2>
       <div class="icons-wrapper">
-        <IconPlanastico width="20" height="30"/>
+        <IconPlanastico width="20" height="30" />
         <IconBurguerMenu />
         <IconCalendar />
         <IconShare />
@@ -62,8 +129,11 @@ h2 {
   font-size: 2rem;
 }
 
-.base-input {
-  margin-bottom: 3rem;
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .icons-wrapper {

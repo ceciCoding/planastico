@@ -34,6 +34,6 @@ const props = defineProps({
 .base-input-label {
   font-size: 1.25rem;
   font-weight: 700;
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 </style>
