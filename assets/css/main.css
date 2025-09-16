@@ -3,13 +3,13 @@
 :root {
   --planastico-cold-black: #20263A;
   --planastico-white: #FFFFFF;
-  --planastico-soft-yellow: #FFF07B;
-  --planastico-yellow: #FFE53C;
-  --planastico-yellow-shade: #ECCE0B;
-  --planastico-warm-soft-gray: #E9E8E3;
+  --planastico-soft-yellow: #FFF373;
+  --planastico-yellow: #FFEA00;
+  --planastico-yellow-shade: #F6E200;
+  --planastico-warm-soft-gray: #F0F0F0;
   --planastico-soft-gray-shade: #D3D2CB;
   --planastico-cold-black-shade: #5C6274;
-  --planastico-error-red: #B3261E;
+  --planastico-error-red: #E20C00;
 }
 
 *, *::before, *::after {
@@ -35,7 +35,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid;
+  outline: 2px solid;
 }
 
 .sr-only {
