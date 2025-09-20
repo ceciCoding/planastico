@@ -17,7 +17,7 @@ export function useTimeParser(initialValue = '', emit = null) {
     return {
       hours: hour ? parseInt(hour, 10) : 12,
       minutes: minute ? parseInt(minute, 10) : 0,
-      period: period
+      period
     };
   }
 
