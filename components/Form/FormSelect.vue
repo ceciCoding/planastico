@@ -42,7 +42,7 @@ const id = useUuid();
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-select {
   display: flex;
   flex-direction: column;

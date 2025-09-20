@@ -21,7 +21,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:hourModelValue", "update:minuteModelValue", "update:timePeriod"]);
+const emit = defineEmits([
+  "update:hourModelValue",
+  "update:minuteModelValue",
+  "update:timePeriod",
+]);
 const hourValue = computed({
   get: () => props.hourModelValue,
   set: (value) => emit("update:hourModelValue", value),
@@ -29,7 +33,7 @@ const hourValue = computed({
 
 const minuteValue = computed({
   get: () => props.minuteModelValue,
-  set: (value) => emit("update:minuteModelValue", value),
+  set: (value) => emit("update:minuteModelValue", script),
 });
 
 const timePeriodValue = computed({
@@ -41,31 +45,31 @@ const timePeriodValue = computed({
 <template>
   <div class="form-timepicker-popover" :id="props.id" popover>
     <div class="form-timepicker-popover__inputs-wrapper">
-      <FormTimepickerInput v-model="hourValue" :min-value="0" :max-value="12"/>
+      <FormTimepickerInput v-model="hourValue" :min-value="0" :max-value="12" />
       <span class="form-timepicker-popover__input-separator">:</span>
-      <FormTimepickerInput v-model="minuteValue" :min-value="0" :max-value="60"/>
-      <FormTimepickerPeriodToggle v-model="timePeriodValue"/>
+      <FormTimepickerInput v-model="minuteValue" :min-value="0" :max-value="60" />
+      <FormTimepickerPeriodToggle v-model="timePeriodValue" />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-timepicker-popover {
   padding: 1.7rem;
   border: 3px solid var(--planastico-cold-black);
   position-area: bottom center;
   margin-top: -5px;
   border-radius: 4px;
-}
 
-.form-timepicker-popover__inputs-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-}
+  &__inputs-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
 
-.form-timepicker-popover__input-separator {
-  font-size: 2rem;
+  &__input-separator {
+    font-size: 2rem;
+  }
 }
 </style>

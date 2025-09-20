@@ -20,7 +20,7 @@ const value = computed(() => props.time.length ? props.time : placeholder);
   </button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-timepicker-trigger {
   background: var(--planastico-warm-soft-gray);
   border-bottom: 6px solid var(--planastico-cold-black);
@@ -30,13 +30,13 @@ const value = computed(() => props.time.length ? props.time : placeholder);
   align-items: center;
   justify-content: center;
   gap: 12px;
-}
 
-.form-timepicker-trigger--left {
-  border-radius: 14px 0 0 0;
-}
+  &--left {
+    border-radius: 14px 0 0 0;
+  }
 
-.form-timepicker-trigger--right {
-  border-radius: 0 14px 0 0;
+  &--right {
+    border-radius: 0 14px 0 0;
+  }
 }
 </style>

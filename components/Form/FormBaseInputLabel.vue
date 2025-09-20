@@ -30,7 +30,7 @@ const props = defineProps({
   </label>
 </template>
 
-<style lang="css">
+<style lang="scss">
 .base-input-label {
   font-size: 1.25rem;
   font-weight: 700;

@@ -41,10 +41,9 @@ watch(() => props.modelValue, (newValue) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-base-input-label {
   display: block;
   margin-bottom: 0.5rem;
 }
-
 </style>
