@@ -14,7 +14,11 @@ const value = computed(() => props.time.length ? props.time : placeholder);
 </script>
 
 <template>
-  <button class="form-timepicker-trigger" :class="`form-timepicker-trigger--${props.roundedCorner}`">
+  <button
+    class="form-timepicker-trigger"
+    :class="`form-timepicker-trigger--${props.roundedCorner}`"
+    aria-label="Seleccionar hora"
+  >
     <IconClock />
     <span class="form-timepicker-trigger__value">{{ value }}</span>
   </button>

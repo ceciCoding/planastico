@@ -37,7 +37,7 @@ const emit = defineEmits(["update:modelValue"]);
     padding: 0 8px;
     font-weight: bold;
 
-    &:active {
+    &--active {
       background: var(--planastico-cold-black);
       color: var(--planastico-warm-soft-gray);
     }

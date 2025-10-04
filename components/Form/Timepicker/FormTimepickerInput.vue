@@ -39,6 +39,9 @@ const emit = defineEmits(['update:modelValue']);
 
   &:focus-visible {
     background: var(--planastico-soft-yellow);
+    border: 2px solid var(--planastico-cold-black);
+    box-shadow: var(--planastico-shadow);
+    outline: none;
   }
 }
 </style>

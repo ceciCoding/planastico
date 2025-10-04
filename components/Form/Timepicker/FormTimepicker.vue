@@ -31,7 +31,6 @@ watch(() => props.modelValue, (newValue) => {
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
-    <FormTimepickerTrigger :time="modelValue" rounded-corner="right" :popovertarget="id"/>
     <FormTimepickerPopover
       :id="id"
       v-model:hour-model-value="hours"
