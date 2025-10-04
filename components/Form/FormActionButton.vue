@@ -52,5 +52,9 @@ const emit = defineEmits(["accept", "cancel"]);
     border-bottom: var(--planastico-border-m);
     border-left: var(--planastico-border-m);
   }
+
+  &:focus-visible {
+    outline-offset: -8px;
+  }
 }
 </style>
