@@ -86,6 +86,7 @@ const fields = ref([
         :error="field.error"
       />
     </section>
+    <FormButtonNew/>
     <section>
       <h2>Icons</h2>
       <div class="icons-wrapper">
@@ -115,6 +116,8 @@ const fields = ref([
         <IconFilters />
         <IconWorld />
         <IconClock />
+        <IconAdd/>
+
       </div>
     </section>
   </main>
