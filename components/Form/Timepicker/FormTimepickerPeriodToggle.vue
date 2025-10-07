@@ -10,40 +10,41 @@ const emit = defineEmits(["update:modelValue"]);
 
 <template>
   <div class="form-timepicker-period-toggle">
-    <button
-      class="form-timepicker-period-toggle__button"
+    <button class="form-timepicker-period-toggle__button"
       :class="{ 'form-timepicker-period-toggle__button--active': modelValue === 'AM' }"
-      @click="emit('update:modelValue', 'AM')"
-    >
+      @click="emit('update:modelValue', 'AM')">
       AM
     </button>
-    <button
-      class="form-timepicker-period-toggle__button"
+    <button class="form-timepicker-period-toggle__button"
       :class="{ 'form-timepicker-period-toggle__button--active': modelValue === 'PM' }"
-      @click="emit('update:modelValue', 'PM')"
-    >
+      @click="emit('update:modelValue', 'PM')">
       PM
     </button>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-timepicker-period-toggle {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: .5rem;
-}
-.form-timepicker-period-toggle__button {
-  background: var(--planastico-warm-soft-gray);
-  border: 2px solid var(--planastico-cold-black);
-  border-radius: 8px;
-  padding: 0 8px;
-  font-weight: bold;
-}
 
-.form-timepicker-period-toggle__button--active {
-  background: var(--planastico-cold-black);
-  color: var(--planastico-warm-soft-gray);
+  &__button {
+    background: var(--planastico-warm-soft-gray);
+    border: 2px solid var(--planastico-cold-black);
+    border-radius: 8px;
+    padding: 0 8px;
+    font-weight: bold;
+
+    &:focus-visible {
+      outline-offset: 2px;
+    }
+
+    &--active {
+      background: var(--planastico-cold-black);
+      color: var(--planastico-warm-soft-gray);
+    }
+  }
 }
 </style>

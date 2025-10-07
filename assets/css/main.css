@@ -1,15 +1,20 @@
-  @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --planastico-cold-black: #20263A;
   --planastico-white: #FFFFFF;
-  --planastico-soft-yellow: #FFF07B;
-  --planastico-yellow: #FFE53C;
-  --planastico-yellow-shade: #ECCE0B;
-  --planastico-warm-soft-gray: #E9E8E3;
+  --planastico-soft-yellow: #FFF373;
+  --planastico-yellow: #FFEA00;
+  --planastico-yellow-shade: #F6E200;
+  --planastico-warm-soft-gray: #F0F0F0;
   --planastico-soft-gray-shade: #D3D2CB;
   --planastico-cold-black-shade: #5C6274;
-  --planastico-error-red: #B3261E;
+  --planastico-error-red: #E20C00;
+  --planastico-shadow: 0 4px 0 var(--planastico-cold-black);
+  --planastico-border-radius: 20px;
+  --planastico-border-s: 2px solid var(--planastico-cold-black);
+  --planastico-border-m: 3px solid var(--planastico-cold-black);
+  --planastico-border-l: 4px solid var(--planastico-cold-black);
 }
 
 *, *::before, *::after {
@@ -35,7 +40,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid;
+  outline: 2px solid #069aff;
 }
 
 .sr-only {
@@ -46,4 +51,16 @@ button {
   position: absolute;
   white-space: nowrap; 
   width: 1px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

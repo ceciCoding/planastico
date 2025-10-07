@@ -25,7 +25,6 @@ const props = defineProps({
 </template>
 
 <style scoped>
-
 .icon-arrow--right {
   transform: rotate(180deg);
 }

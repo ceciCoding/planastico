@@ -28,18 +28,21 @@ const emit = defineEmits(['update:modelValue']);
   >
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-timepicker-input {
   width: 3.75rem;
   height: 3.75rem;
   font-size: 2rem;
   text-align: center;
   border: 2px solid var(--planastico-cold-black);
-  border-radius: 16px;;
-}
+  border-radius: 16px;
 
-.form-timepicker-input:focus-visible {
-  background: var(--planastico-soft-yellow);
+  &:focus-visible {
+    background: var(--planastico-soft-yellow);
+    border: 2px solid var(--planastico-cold-black);
+    box-shadow: var(--planastico-shadow);
+    outline: none;
+  }
 }
 </style>
 
