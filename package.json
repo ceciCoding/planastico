@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.0",
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/image": "^1.10.0",
     "eslint": "^9.30.0",

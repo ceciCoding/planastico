@@ -21,6 +21,12 @@ import {
 } from "reka-ui";
 import { useUuid } from '@/composables/uuid';
 import { ref, watch, computed } from 'vue';
+import {
+  parseDate,
+  fromDate,
+  getLocalTimeZone,
+  CalendarDate
+} from "@internationalized/date";
 
 const props = defineProps({
   modelValue: {
@@ -33,9 +39,32 @@ const props = defineProps({
   }
 });
 
+const id = useUuid();
+
 const emit = defineEmits(['update:modelValue']);
 
-const id = useUuid();
+const dateValue = computed({
+  get() {
+    const v = props.modelValue;
+    if (!v) return undefined;
+
+    if (typeof v === "object" && typeof v.copy === "function") return v;
+
+    if (v instanceof Date) {
+      const dt = fromDate(v, getLocalTimeZone()); // CalendarDateTime
+      return new CalendarDate(dt.year, dt.month, dt.day);
+    }
+
+    if (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+      return parseDate(v);
+    }
+
+    return undefined;
+  },
+  set(next) {
+    emit("update:modelValue", next ? next.toString() : "");
+  }
+});
 </script>
 
 <template>
@@ -45,7 +74,12 @@ const id = useUuid();
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
-    <DatePickerRoot :id="id" granularity="day" locale="es-ES">
+    <DatePickerRoot
+      v-model="dateValue"
+      :id="id"
+      granularity="day"
+      locale="es-ES"
+    >
       <DatePickerField
         v-slot="{ segments }"
         :id="id"
@@ -60,9 +94,9 @@ const id = useUuid();
           >
             {{ item.value }}
           </DatePickerInput>
-          <DatePickerInput 
-            v-else 
-            :part="item.part" 
+          <DatePickerInput
+            v-else
+            :part="item.part"
             class="form-datepicker__field-segment"
           >
             {{ item.value }}
