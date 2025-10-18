@@ -27,7 +27,7 @@ const value = computed(() => props.time.length ? props.time : placeholder);
 <style scoped lang="scss">
 .form-timepicker-trigger {
   background: var(--planastico-warm-soft-gray);
-  border-bottom: 6px solid var(--planastico-cold-black);
+  border-bottom: var(--planastico-border-xl);
   height: 50px;
   padding: 0 14px;
   display: flex;
