@@ -51,7 +51,7 @@
       if (typeof v === 'object' && typeof v.copy === 'function') return v;
 
       if (v instanceof Date) {
-        const dt = fromDate(v, getLocalTimeZone()); // CalendarDateTime
+        const dt = fromDate(v, getLocalTimeZone());
         return new CalendarDate(dt.year, dt.month, dt.day);
       }
 
@@ -251,6 +251,7 @@
     &__popover-content {
       background: var(--planastico-white);
       z-index: 1000;
+      transition: none;
     }
 
     &__popover-arrow {
