@@ -34,12 +34,12 @@ const emit = defineEmits(['update:modelValue']);
   height: 3.75rem;
   font-size: 2rem;
   text-align: center;
-  border: 2px solid var(--planastico-cold-black);
+  border: var(--planastico-border-s);
   border-radius: 16px;
 
   &:focus-visible {
     background: var(--planastico-soft-yellow);
-    border: 2px solid var(--planastico-cold-black);
+    border: var(--planastico-border-s);
     box-shadow: var(--planastico-shadow);
     outline: none;
   }
