@@ -35,22 +35,22 @@ const emit = defineEmits(["accept", "cancel"]);
 .form-action-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 16px;
   gap: 8px;
   flex: 1;
   background: var(--planastico-warm-soft-gray);
+  border-bottom: var(--planastico-border-m);
 
   &--accept {
     border-bottom-right-radius: var(--planastico-border-radius);
-    border-bottom: var(--planastico-border-m);
     border-right: var(--planastico-border-m);
+    justify-content: flex-end;
   }
 
   &--cancel {
     border-bottom-left-radius: var(--planastico-border-radius);
-    border-bottom: var(--planastico-border-m);
     border-left: var(--planastico-border-m);
+    justify-content: flex-start;
   }
 
   &:focus-visible {
