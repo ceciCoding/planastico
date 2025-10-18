@@ -19,7 +19,7 @@
     DatePickerRoot,
     DatePickerTrigger,
   } from 'reka-ui';
-  import { useUuid } from '@/composables/uuid';
+  import { useUuid } from '~/composables/uuid';
   import { ref, watch, computed } from 'vue';
   import {
     parseDate,

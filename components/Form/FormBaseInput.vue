@@ -1,5 +1,5 @@
 <script setup>
-import { useUuid } from '@/composables/uuid';
+import { useUuid } from '~/composables/uuid';
 
 const props = defineProps({
   modelValue: {
