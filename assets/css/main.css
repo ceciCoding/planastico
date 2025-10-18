@@ -15,6 +15,8 @@
   --planastico-border-s: 2px solid var(--planastico-cold-black);
   --planastico-border-m: 3px solid var(--planastico-cold-black);
   --planastico-border-l: 4px solid var(--planastico-cold-black);
+  --planastico-border-xl: 6px solid var(--planastico-cold-black);
+  --planastico-max-z-index: 9999;
 }
 
 *, *::before, *::after {
@@ -40,16 +42,17 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid #069aff;
+  outline: 2px dashed var(--planastico-cold-black);
+  outline-offset: 2px;
 }
 
 .sr-only {
-  clip: rect(0 0 0 0); 
+  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
   overflow: hidden;
   position: absolute;
-  white-space: nowrap; 
+  white-space: nowrap;
   width: 1px;
 }
 
