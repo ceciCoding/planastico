@@ -48,10 +48,4 @@ const id = useUuid();
   flex-direction: column;
   width: 100%;
 }
-
-@media screen and (min-width: 768px) {
-  .form-select {
-    width: 250px;
-  }
-}
 </style>
