@@ -27,7 +27,7 @@ watch(() => props.modelValue, (newValue) => {
 <template>
   <div class="form-timepicker">
     <FormBaseInputLabel
-      :input-id="props.field.label.name"
+      :input-id="id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
