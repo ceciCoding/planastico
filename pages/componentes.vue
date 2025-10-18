@@ -2,6 +2,7 @@
 import FormBaseInput from "~/components/Form/FormBaseInput.vue";
 import FormSelect from "~/components/Form/FormSelect.vue";
 import FormTimepicker from "~/components/Form/Timepicker/FormTimepicker.vue";
+import FormDatepicker from "~/components/Form/FormDatepicker.vue";
 
 const fields = ref([
   {
@@ -69,6 +70,17 @@ const fields = ref([
       },
     },
   },
+  {
+    component: FormDatepicker,
+    modelValue: new Date(),
+    fieldConfig: {
+      label: {
+        name: "Fin",
+        isVisible: true,
+      },
+      roundedCorner: "right"
+    },
+  }
 ]);
 </script>
 
@@ -139,5 +151,11 @@ h2 {
 .icons-wrapper {
   display: flex;
   gap: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .form-section {
+    width: 300px;
+  }
 }
 </style>
