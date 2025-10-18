@@ -35,9 +35,6 @@ const emit = defineEmits([
 
 const isOpen = ref(false);
 
-// Local temporary values used while the popover is open.
-// These are initialized from props when the popover opens and only
-// emitted to the parent when the user accepts.
 const tempHour = ref(props.hourModelValue);
 const tempMinute = ref(props.minuteModelValue);
 const tempPeriod = ref(props.timePeriod);
@@ -134,6 +131,7 @@ function cancel() {
 
   &__content {
     margin-left: 8px;
+    z-index: var(--planastico-max-z-index);
   }
 }
 </style>
