@@ -1,70 +1,70 @@
 <script setup>
-import {
-  DatePickerArrow,
-  DatePickerCalendar,
-  DatePickerCell,
-  DatePickerCellTrigger,
-  DatePickerContent,
-  DatePickerField,
-  DatePickerGrid,
-  DatePickerGridBody,
-  DatePickerGridHead,
-  DatePickerGridRow,
-  DatePickerHeadCell,
-  DatePickerHeader,
-  DatePickerHeading,
-  DatePickerInput,
-  DatePickerNext,
-  DatePickerPrev,
-  DatePickerRoot,
-  DatePickerTrigger
-} from "reka-ui";
-import { useUuid } from '@/composables/uuid';
-import { ref, watch, computed } from 'vue';
-import {
-  parseDate,
-  fromDate,
-  getLocalTimeZone,
-  CalendarDate
-} from "@internationalized/date";
+  import {
+    DatePickerArrow,
+    DatePickerCalendar,
+    DatePickerCell,
+    DatePickerCellTrigger,
+    DatePickerContent,
+    DatePickerField,
+    DatePickerGrid,
+    DatePickerGridBody,
+    DatePickerGridHead,
+    DatePickerGridRow,
+    DatePickerHeadCell,
+    DatePickerHeader,
+    DatePickerHeading,
+    DatePickerInput,
+    DatePickerNext,
+    DatePickerPrev,
+    DatePickerRoot,
+    DatePickerTrigger,
+  } from 'reka-ui';
+  import { useUuid } from '@/composables/uuid';
+  import { ref, watch, computed } from 'vue';
+  import {
+    parseDate,
+    fromDate,
+    getLocalTimeZone,
+    CalendarDate,
+  } from '@internationalized/date';
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Date],
-    default: ''
-  },
-  field: {
-    type: Object,
-    required: true
-  }
-});
+  const props = defineProps({
+    modelValue: {
+      type: [String, Date],
+      default: '',
+    },
+    field: {
+      type: Object,
+      required: true,
+    },
+  });
 
-const id = useUuid();
+  const id = useUuid();
 
-const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue']);
 
-const dateValue = computed({
-  get() {
-    const v = props.modelValue;
-    if (!v) return undefined;
+  const dateValue = computed({
+    get() {
+      const v = props.modelValue;
+      if (!v) return undefined;
 
-    if (typeof v === "object" && typeof v.copy === "function") return v;
+      if (typeof v === 'object' && typeof v.copy === 'function') return v;
 
-    if (v instanceof Date) {
-      const dt = fromDate(v, getLocalTimeZone()); // CalendarDateTime
-      return new CalendarDate(dt.year, dt.month, dt.day);
-    }
+      if (v instanceof Date) {
+        const dt = fromDate(v, getLocalTimeZone()); // CalendarDateTime
+        return new CalendarDate(dt.year, dt.month, dt.day);
+      }
 
-    if (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
-      return parseDate(v);
-    }
+      if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+        return parseDate(v);
+      }
 
-    return undefined;
-  },
-  set(next) {
-    emit("update:modelValue", next ? next.toString() : "");
-  }
-});
+      return undefined;
+    },
+    set(next) {
+      emit('update:modelValue', next ? next.toString() : '');
+    },
+  });
 </script>
 
 <template>
@@ -86,7 +86,10 @@ const dateValue = computed({
         class="form-datepicker__field"
         :class="`form-datepicker__field--${props.field.roundedCorner}`"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DatePickerInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -116,14 +119,31 @@ const dateValue = computed({
         class="form-datepicker__popover-content"
       >
         <DatePickerArrow class="form-datepicker__popover-arrow" />
-        <DatePickerCalendar v-slot="{ weekDays, grid }" class="form-datepicker__calendar">
+        <DatePickerCalendar
+          v-slot="{ weekDays, grid }"
+          class="form-datepicker__calendar"
+        >
           <DatePickerHeader class="form-datepicker__calendar-header">
-            <DatePickerPrev class="form-datepicker__calendar-nav-button" aria-label="Mes anterior">
-              <IconChevron direction="left" class="form-datepicker__icon" aria-hidden="true" />
+            <DatePickerPrev
+              class="form-datepicker__calendar-nav-button"
+              aria-label="Mes anterior"
+            >
+              <IconChevron
+                direction="left"
+                class="form-datepicker__icon"
+                aria-hidden="true"
+              />
             </DatePickerPrev>
             <DatePickerHeading class="form-datepicker__calendar-heading" />
-            <DatePickerNext class="form-datepicker__calendar-nav-button" aria-label="Mes siguiente">
-              <IconChevron direction="right" class="form-datepicker__icon" aria-hidden="true"/>
+            <DatePickerNext
+              class="form-datepicker__calendar-nav-button"
+              aria-label="Mes siguiente"
+            >
+              <IconChevron
+                direction="right"
+                class="form-datepicker__icon"
+                aria-hidden="true"
+              />
             </DatePickerNext>
           </DatePickerHeader>
           <div>
@@ -172,165 +192,165 @@ const dateValue = computed({
 </template>
 
 <style lang="scss">
-.form-datepicker {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: visible;
-
-  &__field {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    height: 44px;
-    padding: 0 40px 0 12px;
-    background: var(--planastico-warm-soft-gray);
-    font-size: 0.875rem;
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    border-bottom: var(--planastico-border-xl);
-
-    &--left {
-      border-top-left-radius: 14px;
-    }
-
-    &--right {
-      border-top-right-radius: 14px;
-    }
-  }
-
-  &__field-segment,
-  &__field-literal {
-    display: inline-block;
-    padding: 0 1px;
-  }
-
-  &__field-segment[part="hour"],
-  &__field-segment[part="minute"],
-  &__field-segment[part="second"],
-  &__field-segment[part="dayPeriod"] {
-    display: none;
-  }
-
-  &__popover-trigger {
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
-    border: 0;
-    background: transparent;
-    border-radius: 8px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-  }
-
-  &__popover-content {
-    background: var(--planastico-white);
-    z-index: 1000;
-  }
-
-  &__popover-arrow {
-    display: none;
-  }
-
-  &__calendar {
+  .form-datepicker {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border: var(--planastico-border-m);
-  }
+    position: relative;
+    overflow: visible;
 
-  &__calendar-header {
-    display: grid;
-    grid-template-columns: 40px 1fr 40px;
-    align-items: center;
-    gap: 6px;
-    padding: 4px;
-    border-bottom: var(--planastico-border-m);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    background: var(--planastico-warm-soft-gray);
-  }
+    &__field {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 44px;
+      padding: 0 40px 0 12px;
+      background: var(--planastico-warm-soft-gray);
+      font-size: 0.875rem;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      border-bottom: var(--planastico-border-xl);
 
-  &__calendar-heading {
-    text-align: center;
-    font-weight: 700;
-    font-size: 1rem;
-    text-transform: capitalize;
-  }
+      &--left {
+        border-top-left-radius: 14px;
+      }
 
-  &__calendar-nav-button {
-    width: 34px;
-    height: 34px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-  }
+      &--right {
+        border-top-right-radius: 14px;
+      }
+    }
 
-  &__calendar-grid {
-    width: 100%;
-  }
+    &__field-segment,
+    &__field-literal {
+      display: inline-block;
+      padding: 0 1px;
+    }
 
-  &__calendar-grid-row {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
+    &__field-segment[part='hour'],
+    &__field-segment[part='minute'],
+    &__field-segment[part='second'],
+    &__field-segment[part='dayPeriod'] {
+      display: none;
+    }
 
-  &__calendar-head-cell {
-    height: 28px;
-    display: grid;
-    place-items: center;
-    font-weight: 600;
-    line-height: 20px;
-  }
+    &__popover-trigger {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border: 0;
+      background: transparent;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
 
-  &__calendar-cell {
-    display: grid;
-  }
+    &__popover-content {
+      background: var(--planastico-white);
+      z-index: 1000;
+    }
 
-  &__calendar-cell-trigger {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    border: 1px solid transparent;
-    font-weight: 500;
-  }
+    &__popover-arrow {
+      display: none;
+    }
 
-  &__calendar-cell-trigger:hover {
-    border-color: #e5e7eb;
-    background: #f9fafb;
-  }
+    &__calendar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      border: var(--planastico-border-m);
+    }
 
-  &__calendar-cell-trigger[data-selected] {
-    background: var(--planastico-cold-black);
-    color: var(--planastico-white);
-  }
+    &__calendar-header {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border-bottom: var(--planastico-border-m);
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      background: var(--planastico-warm-soft-gray);
+    }
 
-  &__calendar-cell-trigger[data-today] {
-    border-color: var(--planastico-cold-black);
-  }
+    &__calendar-heading {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: capitalize;
+    }
 
-  &__calendar-cell-trigger[data-unavailable],
-  &__calendar-cell-trigger[data-disabled] {
-    color: #9ca3af;
-    cursor: not-allowed;
-    background: #f3f4f6;
-    border-color: #f3f4f6;
-  }
+    &__calendar-nav-button {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
 
-  &__calendar-cell-trigger[data-outside-view],
-  &__calendar-cell-trigger[data-outside-month] {
-    color: #cbd5e1;
+    &__calendar-grid {
+      width: 100%;
+    }
+
+    &__calendar-grid-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    &__calendar-head-cell {
+      height: 28px;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      line-height: 20px;
+    }
+
+    &__calendar-cell {
+      display: grid;
+    }
+
+    &__calendar-cell-trigger {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-weight: 500;
+    }
+
+    &__calendar-cell-trigger:hover {
+      border-color: #e5e7eb;
+      background: #f9fafb;
+    }
+
+    &__calendar-cell-trigger[data-selected] {
+      background: var(--planastico-cold-black);
+      color: var(--planastico-white);
+    }
+
+    &__calendar-cell-trigger[data-today] {
+      border-color: var(--planastico-cold-black);
+    }
+
+    &__calendar-cell-trigger[data-unavailable],
+    &__calendar-cell-trigger[data-disabled] {
+      color: #9ca3af;
+      cursor: not-allowed;
+      background: #f3f4f6;
+      border-color: #f3f4f6;
+    }
+
+    &__calendar-cell-trigger[data-outside-view],
+    &__calendar-cell-trigger[data-outside-month] {
+      color: #cbd5e1;
+    }
   }
-}
 </style>
