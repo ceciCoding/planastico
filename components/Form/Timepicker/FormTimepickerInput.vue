@@ -19,8 +19,8 @@ const emit = defineEmits(['update:modelValue']);
 
 <template>
   <input
-    :value="modelValue"
     class="form-timepicker-input"
+    :value="modelValue"
     type="number"
     :min="props.minValue"
     :max="props.maxValue"
