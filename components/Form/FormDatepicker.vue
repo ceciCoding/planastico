@@ -20,7 +20,6 @@
     DatePickerTrigger,
   } from 'reka-ui';
   import { useUuid } from '~/composables/uuid';
-  import { ref, watch, computed } from 'vue';
   import {
     parseDate,
     fromDate,
@@ -202,7 +201,7 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      height: 44px;
+      height: 50px;
       padding: 0 40px 0 12px;
       background: var(--planastico-warm-soft-gray);
       font-size: 0.875rem;
@@ -352,6 +351,12 @@
     &__calendar-cell-trigger[data-outside-view],
     &__calendar-cell-trigger[data-outside-month] {
       color: #cbd5e1;
+    }
+  }
+
+  @media screen and (max-width: 680px) {
+    [data-reka-popper-content-wrapper] {
+      width: calc(100% - 12px);
     }
   }
 </style>
