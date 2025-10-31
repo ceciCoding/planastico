@@ -26,7 +26,7 @@
 
 <style scoped>
   .icon-chevron {
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
   }
 
   .icon-chevron--right {
