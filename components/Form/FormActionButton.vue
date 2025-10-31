@@ -1,21 +1,21 @@
 <script setup>
-const props = defineProps({
-  type: {
-    type: String,
-    default: "accept",
-    validator: (value) => ["accept", "cancel"].includes(value),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-});
-const copy = {
-  accept: "Aceptar",
-  cancel: "Cancelar",
-};
+  const props = defineProps({
+    type: {
+      type: String,
+      default: 'accept',
+      validator: (value) => ['accept', 'cancel'].includes(value),
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  });
+  const copy = {
+    accept: 'Aceptar',
+    cancel: 'Cancelar',
+  };
 
-const emit = defineEmits(["accept", "cancel"]);
+  const emit = defineEmits(['accept', 'cancel']);
 </script>
 
 <template>
@@ -32,29 +32,29 @@ const emit = defineEmits(["accept", "cancel"]);
 </template>
 
 <style lang="scss">
-.form-action-button {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  gap: 8px;
-  flex: 1;
-  background: var(--planastico-warm-soft-gray);
-  border-bottom: var(--planastico-border-m);
+  .form-action-button {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 8px;
+    flex: 1;
+    background: var(--planastico-warm-soft-gray);
+    border-bottom: var(--planastico-border-m);
 
-  &--accept {
-    border-bottom-right-radius: var(--planastico-border-radius);
-    border-right: var(--planastico-border-m);
-    justify-content: flex-end;
-  }
+    &--accept {
+      border-bottom-right-radius: var(--planastico-border-radius-m);
+      border-right: var(--planastico-border-m);
+      justify-content: flex-end;
+    }
 
-  &--cancel {
-    border-bottom-left-radius: var(--planastico-border-radius);
-    border-left: var(--planastico-border-m);
-    justify-content: flex-start;
-  }
+    &--cancel {
+      border-bottom-left-radius: var(--planastico-border-radius-m);
+      border-left: var(--planastico-border-m);
+      justify-content: flex-start;
+    }
 
-  &:focus-visible {
-    outline-offset: -8px;
+    &:focus-visible {
+      outline-offset: -8px;
+    }
   }
-}
 </style>
