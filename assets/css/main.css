@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
-  --planastico-cold-black: #20263A;
-  --planastico-white: #FFFFFF;
-  --planastico-soft-yellow: #FFF373;
-  --planastico-yellow: #FFEA00;
-  --planastico-yellow-shade: #F6E200;
-  --planastico-warm-soft-gray: #F0F0F0;
-  --planastico-soft-gray-shade: #D3D2CB;
-  --planastico-cold-black-shade: #5C6274;
-  --planastico-error-red: #E20C00;
+  --planastico-cold-black: #20263a;
+  --planastico-white: #ffffff;
+  --planastico-soft-yellow: #fff373;
+  --planastico-yellow: #ffea00;
+  --planastico-yellow-shade: #f6e200;
+  --planastico-warm-soft-gray: #f0f0f0;
+  --planastico-soft-gray-shade: #d3d2cb;
+  --planastico-cold-black-shade: #5c6274;
+  --planastico-error-red: #e20c00;
   --planastico-shadow: 0 4px 0 var(--planastico-cold-black);
-  --planastico-border-radius: 20px;
+  --planastico-border-radius-s: 14px;
+  --planastico-border-radius-m: 20px;
   --planastico-border-s: 2px solid var(--planastico-cold-black);
   --planastico-border-m: 3px solid var(--planastico-cold-black);
   --planastico-border-l: 4px solid var(--planastico-cold-black);
@@ -19,22 +20,28 @@
   --planastico-max-z-index: 9999;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-body, input, textarea, button, select {
+body,
+input,
+textarea,
+button,
+select {
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 button {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 :focus {
@@ -64,6 +71,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
