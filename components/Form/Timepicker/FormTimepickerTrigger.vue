@@ -1,16 +1,16 @@
 <script setup>
-const props = defineProps({
-  time: {
-    type: String,
-    default: "",
-  },
-  roundedCorner: {
-    type: String,
-    default: "right",
-  }
-});
-const placeholder = "hh:mm";
-const value = computed(() => props.time.length ? props.time : placeholder);
+  const props = defineProps({
+    time: {
+      type: String,
+      default: '',
+    },
+    roundedCorner: {
+      type: String,
+      default: 'right',
+    },
+  });
+  const placeholder = 'hh:mm';
+  const value = computed(() => (props.time.length ? props.time : placeholder));
 </script>
 
 <template>
@@ -25,22 +25,23 @@ const value = computed(() => props.time.length ? props.time : placeholder);
 </template>
 
 <style scoped lang="scss">
-.form-timepicker-trigger {
-  background: var(--planastico-warm-soft-gray);
-  border-bottom: var(--planastico-border-xl);
-  height: 50px;
-  padding: 0 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  .form-timepicker-trigger {
+    background: var(--planastico-warm-soft-gray);
+    border-bottom: var(--planastico-border-xl);
+    height: 50px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: fit-content;
 
-  &--left {
-    border-radius: 14px 0 0 0;
-  }
+    &--left {
+      border-radius: 14px 0 0 0;
+    }
 
-  &--right {
-    border-radius: 0 14px 0 0;
+    &--right {
+      border-radius: 0 14px 0 0;
+    }
   }
-}
 </style>
