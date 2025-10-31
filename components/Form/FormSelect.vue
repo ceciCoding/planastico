@@ -69,6 +69,7 @@
         <SelectContent
           class="form-select__content data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut"
           position="popper"
+          :avoidCollisions="false"
         >
           <SelectViewport class="form-select__viewport">
             <SelectItem
@@ -116,12 +117,16 @@
       background: var(--planastico-warm-soft-gray);
       border-top-left-radius: var(--planastico-border-radius-s);
       border-top-right-radius: var(--planastico-border-radius-s);
+      border-bottom: var(--planastico-border-xl);
       transition: border 0.1s ease;
 
       &[data-state='closed'] {
-        border-bottom: var(--planastico-border-xl);
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
+      }
+
+      &[data-state='open'] {
+        border-color: var(--planastico-warm-soft-gray);
       }
     }
 
@@ -169,7 +174,7 @@
       padding: 10px 14px;
       cursor: pointer;
 
-      &_[data-highlighted] {
+      &[data-highlighted] {
         background: var(--planastico-cold-black);
         color: var(--planastico-white);
       }
@@ -191,14 +196,11 @@
       color: var(--planastico-error-red);
       font-size: 0.9rem;
     }
+
     &[data-error='true'] &__trigger {
       border-color: var(--planastico-error-red);
       box-shadow: none;
     }
-  }
-
-  [data-reka-popper-content-wrapper] {
-    left: -2px !important;
   }
 
   @keyframes fadeOut {
