@@ -1,87 +1,100 @@
 <script setup>
-import FormBaseInput from "~/components/Form/FormBaseInput.vue";
-import FormSelect from "~/components/Form/FormSelect.vue";
-import FormTimepicker from "~/components/Form/Timepicker/FormTimepicker.vue";
-import FormDatepicker from "~/components/Form/FormDatepicker.vue";
+  import FormBaseInput from '~/components/Form/FormBaseInput.vue';
+  import FormSelect from '~/components/Form/FormSelect.vue';
+  import FormTimepicker from '~/components/Form/Timepicker/FormTimepicker.vue';
+  import FormDatepicker from '~/components/Form/FormDatepicker.vue';
+  import FormTextarea from '~/components/Form/FormTextarea.vue';
 
-const fields = ref([
-  {
-    component: FormBaseInput,
-    modelValue: "hola",
-    fieldConfig: {
-      label: {
-        name: "Nombre",
-        isVisible: true,
-      },
-      inputType: "text",
-      placeholder: "Introduce tu nombre",
-      roundedCorner: "right",
-    },
-  },
-  {
-    component: FormBaseInput,
-    modelValue: "",
-    fieldConfig: {
-      label: {
-        name: "Precio",
-        isVisible: true,
-      },
-      inputType: "number",
-      placeholder: "Introduce el precio",
-      roundedCorner: "right",
-      isCurrency: true,
-      maxLength: 70,
-    },
-    error: "Este campo es requerido",
-  },
-  {
-    component: FormSelect,
-    modelValue: "granada",
-    fieldConfig: {
-      label: {
-        name: "Selecciona una ciudad",
-        isVisible: true,
-      },
-      options: [
-        {
-          label: "Madrid",
-          value: "madrid",
+  const fields = ref([
+    {
+      component: FormBaseInput,
+      modelValue: 'hola',
+      fieldConfig: {
+        label: {
+          name: 'Nombre',
+          isVisible: true,
         },
-        {
-          label: "Granada",
-          value: "granada",
-        },
-        {
-          label: "Murcia",
-          value: "murcia",
-        },
-      ],
-      roundedCorner: "right",
-    },
-    error: "",
-  },
-  {
-    component: FormTimepicker,
-    modelValue: "00:00 AM",
-    fieldConfig: {
-      label: {
-        name: "Inicio",
-        isVisible: true,
+        inputType: 'text',
+        placeholder: 'Introduce tu nombre',
+        roundedCorner: 'right',
       },
     },
-  },
-  {
-    component: FormDatepicker,
-    modelValue: new Date(),
-    fieldConfig: {
-      label: {
-        name: "Fin",
-        isVisible: true,
+    {
+      component: FormBaseInput,
+      modelValue: '',
+      fieldConfig: {
+        label: {
+          name: 'Precio',
+          isVisible: true,
+        },
+        inputType: 'number',
+        placeholder: 'Introduce el precio',
+        roundedCorner: 'right',
+        isCurrency: true,
+        maxLength: 70,
       },
-      roundedCorner: "right"
+      error: 'Este campo es requerido',
     },
-  }
-]);
+    {
+      component: FormSelect,
+      modelValue: 'granada',
+      fieldConfig: {
+        label: {
+          name: 'Selecciona una ciudad',
+          isVisible: true,
+        },
+        options: [
+          {
+            label: 'Madrid',
+            value: 'madrid',
+          },
+          {
+            label: 'Granada',
+            value: 'granada',
+          },
+          {
+            label: 'Murcia',
+            value: 'murcia',
+          },
+        ],
+        roundedCorner: 'right',
+      },
+      error: '',
+    },
+    {
+      component: FormTimepicker,
+      modelValue: '00:00 AM',
+      fieldConfig: {
+        label: {
+          name: 'Inicio',
+          isVisible: true,
+        },
+      },
+    },
+    {
+      component: FormDatepicker,
+      modelValue: new Date(),
+      fieldConfig: {
+        label: {
+          name: 'Fin',
+          isVisible: true,
+        },
+        roundedCorner: 'right',
+      },
+    },
+    {
+      component: FormTextarea,
+      modelValue: '',
+      fieldConfig: {
+        label: {
+          name: 'Correo electrónico',
+          isVisible: true,
+        },
+        placeholder: 'Introduce la descripción',
+        roundedCorner: 'right',
+      },
+    },
+  ]);
 </script>
 
 <template>
@@ -98,11 +111,14 @@ const fields = ref([
         :error="field.error"
       />
     </section>
-    <FormButtonNew/>
+    <FormButtonNew />
     <section>
       <h2>Icons</h2>
       <div class="icons-wrapper">
-        <IconPlanastico width="20" height="30" />
+        <IconPlanastico
+          width="20"
+          height="30"
+        />
         <IconBurguerMenu />
         <IconCalendar />
         <IconShare />
@@ -128,37 +144,36 @@ const fields = ref([
         <IconFilters />
         <IconWorld />
         <IconClock />
-        <IconAdd/>
-
+        <IconAdd />
       </div>
     </section>
   </main>
 </template>
 
 <style>
-h1 {
-  font-size: 2.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.icons-wrapper {
-  display: flex;
-  gap: 1rem;
-}
-
-@media screen and (min-width: 768px) {
-  .form-section {
-    width: 300px;
+  h1 {
+    font-size: 2.5rem;
   }
-}
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .icons-wrapper {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .form-section {
+      width: 300px;
+    }
+  }
 </style>
