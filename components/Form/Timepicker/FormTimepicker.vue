@@ -1,27 +1,33 @@
 <script setup>
-import { useUuid } from '~/composables/uuid.js';
-import { useTimeParser } from '~/composables/timeParser.js';
+  import { useUuid } from '~/composables/uuid.js';
+  import { useTimeParser } from '~/composables/timeParser.js';
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: "",
-  },
-  field: {
-    type: Object,
-    required: true,
-  }
-});
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    field: {
+      type: Object,
+      required: true,
+    },
+  });
 
-const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue']);
 
-const id = useUuid();
+  const id = useUuid();
 
-const { hours, minutes, timePeriod, syncFromExternalValue } = useTimeParser(props.modelValue, emit);
+  const { hours, minutes, timePeriod, syncFromExternalValue } = useTimeParser(
+    props.modelValue,
+    emit,
+  );
 
-watch(() => props.modelValue, (newValue) => {
-  syncFromExternalValue(newValue);
-});
+  watch(
+    () => props.modelValue,
+    (newValue) => {
+      syncFromExternalValue(newValue);
+    },
+  );
 </script>
 
 <template>
@@ -41,8 +47,14 @@ watch(() => props.modelValue, (newValue) => {
 </template>
 
 <style scoped lang="scss">
-.form-base-input-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
+  .form-timepicker {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    .form-base-input-label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
 </style>
