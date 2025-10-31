@@ -1,10 +1,10 @@
 <script setup>
-const props = defineProps({
-  direction: {
-    type: String,
-    default: "left"
-  }
-});
+  const props = defineProps({
+    direction: {
+      type: String,
+      default: 'left',
+    },
+  });
 </script>
 
 <template>
@@ -25,19 +25,19 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.icon-chevron {
-  transition: none;
-}
+  .icon-chevron {
+    transition: transform 0.1s ease-in-out;
+  }
 
-.icon-chevron--right {
-  transform: rotate(180deg);
-}
+  .icon-chevron--right {
+    transform: rotate(180deg);
+  }
 
-.icon-chevron--down {
-  transform: rotate(90deg);
-}
+  .icon-chevron--down {
+    transform: rotate(90deg);
+  }
 
-.icon-chevron--up {
-  transform: rotate(-90deg);
-}
+  .icon-chevron--up {
+    transform: rotate(-90deg);
+  }
 </style>
