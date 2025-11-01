@@ -19,20 +19,20 @@
 
   const { hours, minutes, timePeriod, syncFromExternalValue } = useTimeParser(
     props.modelValue,
-    emit,
+    emit
   );
 
   watch(
     () => props.modelValue,
     (newValue) => {
       syncFromExternalValue(newValue);
-    },
+    }
   );
 </script>
 
 <template>
   <div class="form-timepicker">
-    <FormBaseInputLabel
+    <FormInputLabel
       :input-id="id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"

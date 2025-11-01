@@ -68,7 +68,7 @@
 
 <template>
   <div class="form-datepicker">
-    <FormBaseInputLabel
+    <FormInputLabel
       :input-id="id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"

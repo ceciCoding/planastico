@@ -21,7 +21,7 @@
 
 <template>
   <div class="form-textarea">
-    <FormBaseInputLabel
+    <FormInputLabel
       :input-id="id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
