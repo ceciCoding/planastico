@@ -20,21 +20,26 @@
 </script>
 
 <template>
-  <label
-    :for="props.inputId"
-    class="form-input-label"
-    :class="{ 'sr-only': !props.isVisible }"
-    :style="{ color: props.color }"
-  >
-    {{ label }}
-    <span v-if="props.required">*</span>
-  </label>
+  <div class="form-input-label">
+    <label
+      :for="props.inputId"
+      class="form-input-label__label"
+      :class="{ 'sr-only': !props.isVisible }"
+      :style="{ color: props.color }"
+    >
+      {{ label }}
+      <span v-if="props.required">*</span>
+    </label>
+    <slot name="description" />
+  </div>
 </template>
 
 <style lang="scss">
   .form-input-label {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    &__label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
   }
 </style>
