@@ -4,6 +4,7 @@
   import FormTimepicker from '~/components/Form/Timepicker/FormTimepicker.vue';
   import FormDatepicker from '~/components/Form/FormDatepicker.vue';
   import FormTextarea from '~/components/Form/FormTextarea.vue';
+  import FormFilePicker from '~/components/Form/FilePicker/FormFilePicker.vue';
 
   const fields = ref([
     {
@@ -93,6 +94,17 @@
         placeholder: 'Introduce la descripción',
         roundedCorner: 'right',
       },
+    },
+    {
+      component: FormFilePicker,
+      modelValue: null,
+      fieldConfig: {
+        label: {
+          name: 'Subir imágenes',
+          isVisible: true,
+        },
+      },
+      error: '',
     },
   ]);
 </script>
