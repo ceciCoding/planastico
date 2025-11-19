@@ -36,10 +36,11 @@
 
 <style lang="scss">
   .form-input-label {
+    margin-bottom: 1rem;
+
     &__label {
       font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 1rem;
     }
   }
 </style>
