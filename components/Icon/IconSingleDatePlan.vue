@@ -6,14 +6,29 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect x="1" y="1" width="20" height="20" rx="10" fill="white" />
-    <rect x="1" y="1" width="20" height="20" rx="10" stroke="#20263A" stroke-width="2" />
+    <rect
+      x="1"
+      y="1"
+      width="20"
+      height="20"
+      rx="10"
+      fill="white"
+    />
+    <rect
+      x="1"
+      y="1"
+      width="20"
+      height="20"
+      rx="10"
+      stroke="#20263A"
+      stroke-width="2"
+    />
     <circle
       cx="11"
       cy="11"
       r="2.475"
-      fill="#20263A"
-      stroke="#20263A"
+      fill="currentColor"
+      stroke="currentColor"
       stroke-width="0.55"
     />
   </svg>
