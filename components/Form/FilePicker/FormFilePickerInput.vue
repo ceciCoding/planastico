@@ -83,7 +83,6 @@
           'form-file-picker-input__input--with-preview': previewSrc,
         }"
         type="file"
-        :id="id"
         accept="image/png, image/jpeg, image/jpg, image/webp, image/avif"
         tabindex="-1"
         aria-hidden="true"

@@ -43,11 +43,15 @@
         </p>
       </template>
     </FormInputLabel>
-    <div class="form-file-picker__inputs-wrapper">
+    <div
+      class="form-file-picker__inputs-wrapper"
+      role="group"
+      :aria-labelledby="id"
+      :aria-describedby="`form-file-picker__description-${id}`"
+    >
       <FormFilePickerInput
         v-for="index in 3"
         :key="index"
-        :id="id"
         :index="index"
         :model-value="props.modelValue"
         :field="props.field"
