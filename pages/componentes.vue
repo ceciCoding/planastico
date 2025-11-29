@@ -5,6 +5,8 @@
   import FormDatepicker from '~/components/Form/FormDatepicker.vue';
   import FormTextarea from '~/components/Form/FormTextarea.vue';
   import FormFilePicker from '~/components/Form/FilePicker/FormFilePicker.vue';
+  import BaseModal from '~/components/Modal/BaseModal.vue';
+  import TestModal from '~/components/Modal/TestModal.vue';
 
   const fields = ref([
     {
@@ -123,7 +125,14 @@
         :error="field.error"
       />
     </section>
-    <FormButtonNew />
+    <BaseModal>
+      <template #trigger>
+        <FormButtonNew />
+      </template>
+    </BaseModal>
+
+    <TestModal />
+
     <section>
       <h2>Icons</h2>
       <div class="icons-wrapper">
