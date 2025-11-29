@@ -41,6 +41,7 @@
         ]"
         :type="props.field.inputType"
         :placeholder="props.field.placeholder"
+        :aria-describedby="`${id}-form-base-input__count`"
         @input="(e) => emit('update:model-value', e.target.value)"
       />
       <span
@@ -52,6 +53,7 @@
     </div>
     <span
       v-if="props.field.maxLength && !props.error.length"
+      :id="`${id}-form-base-input__count`"
       class="form-base-input__count"
     >
       {{ props.modelValue.length }}/{{ props.field.maxLength }}
@@ -59,6 +61,7 @@
     <span
       v-if="props.error.length"
       class="form-base-input__error"
+      aria-live="polite"
     >
       {{ props.error }}
     </span>

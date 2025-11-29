@@ -92,6 +92,7 @@
         v-if="!previewSrc"
         class="form-file-picker-input__icon-wrapper"
         :class="{ 'form-file-picker-input__icon-wrapper--error': hasError }"
+        type="button"
         :aria-label="`Subir imagen ${index}`"
         @click.prevent="inputRef.click()"
       >
