@@ -9,7 +9,7 @@
     DialogTitle,
     DialogTrigger,
   } from 'reka-ui';
-  import IconClose from '~/components/Icon/IconClose.vue';
+  import IconCancel from '~/components/Icon/IconCancel.vue';
 </script>
 
 <template>
@@ -32,7 +32,7 @@
           aria-label="Cerrar"
         >
           <slot name="close-icon">
-            <IconClose />
+            <IconCancel />
           </slot>
         </DialogClose>
       </DialogContent>
