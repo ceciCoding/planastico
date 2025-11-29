@@ -125,13 +125,9 @@
         :error="field.error"
       />
     </section>
-    <BaseModal>
-      <template #trigger>
-        <FormButtonNew />
-      </template>
-    </BaseModal>
+    <FormButtonNew />
 
-    <TestModal />
+    <BaseChip text="Proyección" />
 
     <section>
       <h2>Icons</h2>
@@ -190,6 +186,10 @@
   .icons-wrapper {
     display: flex;
     gap: 1rem;
+  }
+
+  .base-chip {
+    margin-top: 2rem;
   }
 
   @media screen and (min-width: 768px) {
