@@ -53,8 +53,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px dashed var(--planastico-cold-black);
-  outline-offset: 2px;
+  outline: 2px solid var(--planastico-cold-black);
 }
 
 .sr-only {
