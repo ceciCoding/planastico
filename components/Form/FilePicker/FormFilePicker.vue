@@ -19,6 +19,8 @@
   const inputError = ref(null);
   const errorMessage = computed(() => props.error || inputError.value);
 
+  const files = ref([]);
+
   function handleInputError(message) {
     inputError.value = message;
   }
@@ -52,6 +54,7 @@
         :error="props.error"
         :aria-describedby="`form-file-picker__description-${id}`"
         @error="handleInputError"
+        @update:modelValue="(file) => files.push(file)"
       />
     </div>
     <p
@@ -82,6 +85,7 @@
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: nowrap;
     }
 
     &__error {

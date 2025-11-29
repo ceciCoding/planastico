@@ -55,7 +55,10 @@
 <template>
   <div
     class="form-file-picker-input"
-    :class="{ 'form-file-picker-input--error': hasError }"
+    :class="{
+      'form-file-picker-input--error': hasError,
+      'form-file-picker-input--without-preview': !previewSrc,
+    }"
   >
     <div
       class="form-file-picker-input__header"
@@ -115,9 +118,14 @@
     border-radius: 12px;
     overflow: hidden;
     height: 125px;
+    flex: 1 1 0;
 
     &--error {
       border-color: var(--planastico-error-red);
+    }
+
+    &--without-preview {
+      background: var(--planastico-soft-yellow);
     }
 
     &__header {
@@ -197,6 +205,10 @@
       height: 100%;
 
       &::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+
+      &::file-selector-button {
         visibility: hidden;
       }
 
