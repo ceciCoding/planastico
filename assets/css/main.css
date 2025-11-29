@@ -10,7 +10,7 @@
   --planastico-soft-gray-shade: #d3d2cb;
   --planastico-cold-black-shade: #5c6274;
   --planastico-error-red: #e20c00;
-  --planastico-shadow: 0 4px 0 var(--planastico-cold-black);
+  --planastico-shadow: 0 3px 0 var(--planastico-cold-black);
   --planastico-border-radius-s: 14px;
   --planastico-border-radius-m: 20px;
   --planastico-border-s: 2px solid var(--planastico-cold-black);
