@@ -61,6 +61,12 @@
       emit('update:modelValue', next ? next.toString() : '');
     },
   });
+
+  const partsMap = {
+    day: 'Día',
+    month: 'Mes',
+    year: 'Año',
+  };
 </script>
 
 <template>
@@ -90,6 +96,7 @@
             v-if="item.part === 'literal'"
             :part="item.part"
             class="form-datepicker__field-literal"
+            :aria-label="partsMap[item.part]"
           >
             {{ item.value }}
           </DatePickerInput>
@@ -97,12 +104,19 @@
             v-else
             :part="item.part"
             class="form-datepicker__field-segment"
+            :aria-label="partsMap[item.part]"
           >
             {{ item.value }}
           </DatePickerInput>
         </template>
-        <DatePickerTrigger class="form-datepicker__popover-trigger">
-          <IconCalendar class="form-datepicker__icon" />
+        <DatePickerTrigger
+          class="form-datepicker__popover-trigger"
+          aria-label="Selector de fecha"
+        >
+          <IconCalendar
+            class="form-datepicker__icon"
+            aria-hidden="true"
+          />
         </DatePickerTrigger>
       </DatePickerField>
 
