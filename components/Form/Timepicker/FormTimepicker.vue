@@ -1,5 +1,4 @@
 <script setup>
-  import { useUuid } from '~/composables/uuid.js';
   import { useTimeParser } from '~/composables/timeParser.js';
 
   const props = defineProps({
@@ -14,8 +13,6 @@
   });
 
   const emit = defineEmits(['update:modelValue']);
-
-  const id = useUuid();
 
   const { hours, minutes, timePeriod, syncFromExternalValue } = useTimeParser(
     props.modelValue,
@@ -33,12 +30,12 @@
 <template>
   <div class="form-timepicker">
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
     <FormTimepickerPopover
-      :id="id"
+      :id="field.id"
       v-model:hour-model-value="hours"
       v-model:minute-model-value="minutes"
       v-model:time-period="timePeriod"

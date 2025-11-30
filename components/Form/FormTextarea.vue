@@ -1,6 +1,4 @@
 <script setup>
-  import { useUuid } from '~/composables/uuid';
-
   const props = defineProps({
     modelValue: {
       type: String,
@@ -16,18 +14,17 @@
     },
   });
   const emit = defineEmits(['update:model-value']);
-  const id = useUuid();
 </script>
 
 <template>
   <div class="form-textarea">
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
     <textarea
-      :id="id"
+      :id="field.id"
       :value="props.modelValue"
       rows="6"
       class="form-textarea__textarea"
@@ -38,12 +35,12 @@
         },
       ]"
       :placeholder="props.field.placeholder"
-      :aria-describedby="`${id}-form-textarea__count`"
+      :aria-describedby="`${field.id}-form-textarea__count`"
       @input="(e) => emit('update:model-value', e.target.value)"
     ></textarea>
     <span
       v-if="props.field.maxLength && !props.error.length"
-      :id="`${id}-form-textarea__count`"
+      :id="`${field.id}-form-textarea__count`"
       class="form-textarea__count"
     >
       {{ props.modelValue.length }}/{{ props.field.maxLength }}

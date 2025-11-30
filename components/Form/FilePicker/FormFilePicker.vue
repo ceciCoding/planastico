@@ -1,6 +1,4 @@
 <script setup>
-  import { useUuid } from '~/composables/uuid.js';
-
   const props = defineProps({
     modelValue: {
       type: [String, Number, Object],
@@ -15,7 +13,6 @@
       default: '',
     },
   });
-  const id = useUuid();
   const inputError = ref(null);
   const errorMessage = computed(() => props.error || inputError.value);
 
@@ -29,7 +26,7 @@
 <template>
   <div class="form-file-picker">
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     >

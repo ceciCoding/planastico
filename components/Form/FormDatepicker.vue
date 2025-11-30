@@ -19,7 +19,6 @@
     DatePickerRoot,
     DatePickerTrigger,
   } from 'reka-ui';
-  import { useUuid } from '~/composables/uuid';
   import {
     parseDate,
     fromDate,
@@ -37,8 +36,6 @@
       required: true,
     },
   });
-
-  const id = useUuid();
 
   const emit = defineEmits(['update:modelValue']);
 
@@ -69,19 +66,19 @@
 <template>
   <div class="form-datepicker">
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
     <DatePickerRoot
       v-model="dateValue"
-      :id="id"
+      :id="field.id"
       granularity="day"
       locale="es-ES"
     >
       <DatePickerField
         v-slot="{ segments }"
-        :id="id"
+        :id="field.id"
         class="form-datepicker__field"
         :class="`form-datepicker__field--${props.field.roundedCorner}`"
       >

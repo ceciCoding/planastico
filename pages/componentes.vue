@@ -13,6 +13,7 @@
       component: FormBaseInput,
       modelValue: 'hola',
       fieldConfig: {
+        id: 'nombre',
         label: {
           name: 'Nombre',
           isVisible: true,
@@ -30,6 +31,7 @@
           name: 'Precio',
           isVisible: true,
         },
+        id: 'precio',
         inputType: 'number',
         placeholder: 'Introduce el precio',
         roundedCorner: 'right',
@@ -46,6 +48,7 @@
           name: 'Selecciona una ciudad',
           isVisible: true,
         },
+        id: 'ciudad',
         options: [
           {
             label: 'Madrid',
@@ -72,6 +75,7 @@
           name: 'Inicio',
           isVisible: true,
         },
+        id: 'hora-inicio',
       },
     },
     {
@@ -82,6 +86,7 @@
           name: 'Fin',
           isVisible: true,
         },
+        id: 'fecha-fin',
         roundedCorner: 'right',
       },
     },
@@ -93,6 +98,7 @@
           name: 'Correo electrónico',
           isVisible: true,
         },
+        id: 'descripcion',
         placeholder: 'Introduce la descripción',
         roundedCorner: 'right',
       },
@@ -105,6 +111,7 @@
           name: 'Subir imágenes',
           isVisible: true,
         },
+        id: 'imagenes',
       },
       error: '',
     },

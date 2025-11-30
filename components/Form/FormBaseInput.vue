@@ -1,6 +1,4 @@
 <script setup>
-  import { useUuid } from '~/composables/uuid';
-
   const props = defineProps({
     modelValue: {
       type: String,
@@ -16,19 +14,18 @@
     },
   });
   const emit = defineEmits(['update:model-value']);
-  const id = useUuid();
 </script>
 
 <template>
   <div class="form-base-input">
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
     <div class="form-base-input__wrapper">
       <input
-        :id="id"
+        :id="field.id"
         :value="props.modelValue"
         class="form-base-input__input"
         :class="[

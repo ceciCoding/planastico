@@ -1,5 +1,4 @@
 <script setup>
-  import { useUuid } from '~/composables/uuid.js';
   import {
     SelectRoot,
     SelectTrigger,
@@ -28,7 +27,6 @@
       default: '',
     },
   });
-  const id = useUuid();
   const isOpen = ref(false);
   const chevronDirection = computed(() => (isOpen.value ? 'up' : 'down'));
   const emit = defineEmits(['update:model-value']);
@@ -41,7 +39,7 @@
     :data-error="!!error"
   >
     <FormInputLabel
-      :input-id="id"
+      :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
     />
@@ -55,7 +53,7 @@
       @update:open="isOpen = $event"
     >
       <SelectTrigger
-        :id="id"
+        :id="field.id"
         class="form-select__trigger"
       >
         <SelectValue
