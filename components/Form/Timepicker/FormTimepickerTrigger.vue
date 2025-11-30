@@ -18,8 +18,9 @@
     class="form-timepicker-trigger"
     :class="`form-timepicker-trigger--${props.roundedCorner}`"
     aria-label="Seleccionar hora"
+    :aria-description="`Hora seleccionada: value`"
   >
-    <IconClock />
+    <IconClock aria-hidden="true" />
     <span class="form-timepicker-trigger__value">{{ value }}</span>
   </button>
 </template>
