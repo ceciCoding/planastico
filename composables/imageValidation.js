@@ -6,7 +6,7 @@ export const useImageValidation = () => {
     'image/webp',
     'image/avif',
   ];
-  const maxSize = 2 * 1024 * 1024; // 2MB
+  const maxSize = 5 * 1024 * 1024;
 
   const validateImage = (file) => {
     if (!validFormats.includes(file.type)) {
@@ -15,7 +15,7 @@ export const useImageValidation = () => {
     if (file.size > maxSize) {
       return {
         valid: false,
-        error: 'La imagen supera el tamaño máximo permitido (2MB)',
+        error: 'La imagen supera el tamaño máximo permitido (5MB)',
       };
     }
     return { valid: true };
