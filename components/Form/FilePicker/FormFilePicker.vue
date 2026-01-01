@@ -1,8 +1,8 @@
 <script setup>
   const props = defineProps({
     modelValue: {
-      type: [String, Number, Object],
-      default: '',
+      type: Array,
+      default: () => [],
     },
     field: {
       type: Object,
@@ -13,13 +13,21 @@
       default: '',
     },
   });
+
+  const emit = defineEmits(['update:modelValue']);
+
   const inputError = ref(null);
   const errorMessage = computed(() => props.error || inputError.value);
-
-  const files = ref([]);
+  const files = ref([null, null, null]);
 
   function handleInputError(message) {
     inputError.value = message;
+  }
+
+  function handleFileUpdate(index, file) {
+    files.value[index] = file;
+    const validFiles = files.value.filter((f) => f !== null);
+    emit('update:modelValue', validFiles);
   }
 </script>
 
@@ -50,12 +58,12 @@
         v-for="index in 3"
         :key="index"
         :index="index"
-        :model-value="props.modelValue"
+        :model-value="files[index - 1]"
         :field="props.field"
         :error="props.error"
         :aria-describedby="`form-file-picker__description-${id}`"
         @error="handleInputError"
-        @update:modelValue="(file) => files.push(file)"
+        @update:modelValue="(file) => handleFileUpdate(index - 1, file)"
       />
     </div>
     <p

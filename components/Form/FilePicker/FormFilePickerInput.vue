@@ -16,7 +16,7 @@
     },
   });
 
-  const emit = defineEmits(['error']);
+  const emit = defineEmits(['error', 'update:modelValue']);
 
   const inputRef = ref(null);
 
@@ -38,11 +38,13 @@
     }
 
     previewSrc.value = URL.createObjectURL(file);
+    emit('update:modelValue', file);
   }
 
   function deleteImage() {
     previewSrc.value = null;
     inputRef.value.value = null;
+    emit('update:modelValue', null);
     unsetError();
   }
 
