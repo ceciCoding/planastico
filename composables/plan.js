@@ -1,6 +1,7 @@
 export const useEvents = () => {
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
+  const { uploadEventImages } = useImageUpload();
 
   const generateValidationCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -51,10 +52,22 @@ export const useEvents = () => {
 
       if (categoriesError) throw categoriesError;
 
+      let imageUrls = [];
+      if (eventData.images && eventData.images.length > 0) {
+        imageUrls = await uploadEventImages(eventData.images, event.id);
+
+        const { error: imageUpdateError } = await supabase
+          .from('events')
+          .update({ images: imageUrls })
+          .eq('id', event.id);
+
+        if (imageUpdateError) throw imageUpdateError;
+      }
+
       return {
-        data: event,
+        data: { ...event, images: imageUrls },
         error: null,
-        validationCode: validationCode, // Devolver el código para mostrarlo (solo en testing)
+        validationCode: validationCode,
       };
     } catch (error) {
       console.error('Error al crear evento:', error);
