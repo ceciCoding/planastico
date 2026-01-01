@@ -26,7 +26,8 @@ export const useEvents = () => {
         price: eventData.price || null,
         contact_email: eventData.contact_email || null,
         validation_email: eventData.validation_email || null,
-        validation_code: validationCode, // ✅ Añadir el código
+        // TODO: eliminar de la BD
+        validation_code: validationCode,
         user_id: user.value?.id || null,
         validated: true,
         email_verified: user.value ? true : false,
@@ -54,7 +55,6 @@ export const useEvents = () => {
       return {
         data: event,
         error: null,
-        validationCode: validationCode, // Devolver el código para mostrarlo (solo en testing)
       };
     } catch (error) {
       console.error('Error al crear evento:', error);
@@ -155,10 +155,29 @@ export const useEvents = () => {
     }
   };
 
+  const updateEventImages = async (eventId, imageUrls) => {
+    try {
+      const { error } = await supabase
+        .from('events')
+        .update({
+          image_urls: imageUrls,
+        })
+        .eq('id', eventId);
+
+      if (error) throw error;
+
+      return { data: true, error: null };
+    } catch (error) {
+      console.error('Error al actualizar imágenes:', error);
+      return { data: null, error: error.message };
+    }
+  };
+
   return {
     createEvent,
     getCategories,
     getEventById,
     getEvents,
+    updateEventImages,
   };
 };
