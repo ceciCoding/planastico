@@ -76,7 +76,7 @@
               :value="option.value"
               class="form-select__item"
             >
-              <SelectItemText class="form-select__itemText">
+              <SelectItemText class="form-select__item-text">
                 {{ option.label }}
               </SelectItemText>
               <SelectItemIndicator class="form-select__indicator">
@@ -147,6 +147,7 @@
       color: var(--planastico-cold-black);
       overflow: hidden;
       transition: border 0.1s ease;
+      z-index: var(--planastico-max-z-index);
 
       &[data-state='open'] {
         border-bottom: var(--planastico-border-xl);
@@ -176,7 +177,7 @@
         background: var(--planastico-cold-black);
         color: var(--planastico-white);
       }
-      &[data-state='checked'] &__itemText {
+      &[data-state='checked'] &__item-text {
         font-weight: 700;
       }
     }
@@ -211,6 +212,7 @@
       transform: scale(0.98);
     }
   }
+
   .form-select__content[data-state='close'] {
     animation: fadeOut 1000ms ease-in;
   }
