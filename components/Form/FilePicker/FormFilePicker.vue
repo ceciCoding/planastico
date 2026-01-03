@@ -41,7 +41,7 @@
     >
       <template #description>
         <p
-          :id="`form-file-picker__description-${id}`"
+          :id="`form-file-picker__description-${field.id}`"
           class="form-file-picker__description"
         >
           Puedes cargar un máximo de 3 imágenes de hasta 2MB en formato JPG o
@@ -52,8 +52,7 @@
     <div
       class="form-file-picker__inputs-wrapper"
       role="group"
-      :aria-labelledby="id"
-      :aria-describedby="`form-file-picker__description-${id}`"
+      :aria-describedby="`form-file-picker__description-${field.id}`"
     >
       <FormFilePickerInput
         v-for="index in 3"
@@ -62,7 +61,7 @@
         :model-value="files[index - 1]"
         :field="props.field"
         :error="props.error"
-        :aria-describedby="`form-file-picker__description-${id}`"
+        :aria-describedby="`form-file-picker__description-${field.id}`"
         @error="handleInputError"
         @update:modelValue="(file) => handleFileUpdate(index - 1, file)"
       />
@@ -88,7 +87,6 @@
       font-weight: 400;
       line-height: 20px;
       color: var(--planastico-cold-black-shade);
-      letter-spacing: 0.5%;
     }
 
     &__inputs-wrapper {
