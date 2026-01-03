@@ -25,6 +25,14 @@
   const step3Ref = ref(null);
   const step4Ref = ref(null);
 
+  const submitButtonText = computed(() => {
+    if (currentStep.value === 4) {
+      return isSubmitting.value ? 'Creando...' : 'Crear plan';
+    } else {
+      return 'Siguiente';
+    }
+  });
+
   const handleGoBack = () => {
     currentStep.value === 1 ? handleCancel() : goToPreviousStep();
   };
@@ -176,13 +184,7 @@
               type="submit"
               :disabled="isSubmitting"
             >
-              {{
-                currentStep === 4
-                  ? isSubmitting
-                    ? 'Creando...'
-                    : 'Crear plan'
-                  : 'Siguiente'
-              }}
+              {{ submitButtonText }}
             </BaseButton>
           </div>
         </form>
