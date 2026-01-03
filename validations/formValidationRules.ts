@@ -1,4 +1,33 @@
-const step1Rules = {
+import type { AddPlanFormData } from '~/composables/addPlanForm';
+
+type ValidationCallback = (error?: Error) => void;
+
+interface BaseValidationRule {
+  required?: boolean;
+  type?: 'string' | 'number' | 'boolean' | 'array' | 'email' | 'enum';
+  min?: number;
+  max?: number;
+  message?: string;
+  enum?: string[];
+}
+
+interface CustomValidationRule {
+  validator: (
+    rule: unknown,
+    value: unknown,
+    callback: ValidationCallback,
+    source: Partial<AddPlanFormData>
+  ) => void;
+}
+
+type ValidationRule = BaseValidationRule | CustomValidationRule;
+type FieldRules = ValidationRule[];
+
+interface StepRules {
+  [field: string]: FieldRules;
+}
+
+const step1Rules: StepRules = {
   name: [
     { required: true, message: 'El título es obligatorio' },
     { max: 70, message: 'El título no puede superar los 70 caracteres' },
@@ -28,7 +57,7 @@ const step1Rules = {
   ],
 };
 
-const step2Rules = {
+const step2Rules: StepRules = {
   place: [
     { required: true, message: 'Debes seleccionar un tipo de lugar' },
     {
@@ -39,39 +68,38 @@ const step2Rules = {
   ],
   address: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (
           (source.place === 'in-person' || source.place === 'hybrid') &&
           !value
         ) {
-          callback(new Error('La dirección es obligatoria'));
-        } else if (value && value.length > 400) {
-          callback(
+          return callback(new Error('La dirección es obligatoria'));
+        }
+        if (typeof value === 'string' && value.length > 400) {
+          return callback(
             new Error('La dirección no puede superar los 400 caracteres')
           );
-        } else {
-          callback();
         }
+        callback();
       },
     },
   ],
   meeting_link: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (source.place === 'online' || source.place === 'hybrid') {
           if (!value) {
-            callback(new Error('El enlace de la reunión es obligatorio'));
-          } else {
+            return callback(new Error('El enlace de la reunión es obligatorio'));
+          }
+          if (typeof value === 'string') {
             try {
               new URL(value);
-              callback();
             } catch {
-              callback(new Error('El enlace no es válido'));
+              return callback(new Error('El enlace no es válido'));
             }
           }
-        } else {
-          callback();
         }
+        callback();
       },
     },
   ],
@@ -86,37 +114,35 @@ const step2Rules = {
   start_date: [{ required: true, message: 'La fecha es obligatoria' }],
   end_date: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (source.frequency === 'recurring') {
           if (!value) {
-            callback(new Error('La fecha de fin es obligatoria'));
-          } else if (new Date(value) <= new Date(source.start_date)) {
-            callback(
+            return callback(new Error('La fecha de fin es obligatoria'));
+          }
+          if (
+            source.start_date &&
+            new Date(value as string | Date) <= new Date(source.start_date)
+          ) {
+            return callback(
               new Error('La fecha de fin debe ser posterior a la de inicio')
             );
-          } else {
-            callback();
           }
-        } else {
-          callback();
         }
+        callback();
       },
     },
   ],
   recurrency: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (source.frequency === 'recurring') {
-          if (!value || value.length === 0) {
-            callback(
+          if (!value || (Array.isArray(value) && value.length === 0)) {
+            return callback(
               new Error('Debes seleccionar al menos un día de la semana')
             );
-          } else {
-            callback();
           }
-        } else {
-          callback();
         }
+        callback();
       },
     },
   ],
@@ -124,7 +150,7 @@ const step2Rules = {
   end_time: [{ required: true, message: 'La hora de fin es obligatoria' }],
 };
 
-const step3Rules = {
+const step3Rules: StepRules = {
   cost: [
     { required: true, message: 'Debes seleccionar el tipo de coste' },
     {
@@ -135,44 +161,44 @@ const step3Rules = {
   ],
   price: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (source.cost !== 'free') {
           if (!value && value !== 0) {
-            callback(new Error('El precio es obligatorio'));
-          } else if (isNaN(Number(value))) {
-            callback(new Error('El precio debe ser un número'));
-          } else if (Number(value) <= 0) {
-            callback(new Error('El precio debe ser mayor a 0'));
-          } else {
-            callback();
+            return callback(new Error('El precio es obligatorio'));
           }
-        } else {
-          callback();
+          if (isNaN(Number(value))) {
+            return callback(new Error('El precio debe ser un número'));
+          }
+          if (Number(value) <= 0) {
+            return callback(new Error('El precio debe ser mayor a 0'));
+          }
         }
+        callback();
       },
     },
   ],
 };
 
-const step4Rules = {
+const step4Rules: StepRules = {
   contact_email: [
     { required: true, message: 'El correo de contacto es obligatorio' },
     { type: 'email', message: 'El correo de contacto no es válido' },
   ],
   validation_email: [
     {
-      validator: (rule, value, callback, source) => {
+      validator: (_, value, callback, source) => {
         if (!source.useContactEmailForManagement) {
           if (!value) {
-            callback(new Error('El correo de gestión es obligatorio'));
-          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-            callback(new Error('El correo de gestión no es válido'));
-          } else {
-            callback();
+            return callback(new Error('El correo de gestión es obligatorio'));
           }
-        } else {
-          callback();
+          if (
+            typeof value === 'string' &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          ) {
+            return callback(new Error('El correo de gestión no es válido'));
+          }
         }
+        callback();
       },
     },
   ],
@@ -182,7 +208,7 @@ const step4Rules = {
   // ],
 };
 
-export const stepsRulesMap = {
+export const stepsRulesMap: Record<number, StepRules> = {
   1: step1Rules,
   2: step2Rules,
   3: step3Rules,
