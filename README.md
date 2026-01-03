@@ -35,10 +35,12 @@ Planástico is a web application that helps people discover, create, and manage 
 
 ### Utilities
 
+- **[VueUse](https://vueuse.org/)** - Collection of Vue composition utilities
 - **[Axios](https://axios-http.com/)** - HTTP client
 - **[async-validator](https://github.com/yiminghe/async-validator)** - Form validation
 - **[browser-image-compression](https://github.com/Donaldcwl/browser-image-compression)** - Client-side image optimization
 - **[nanoid](https://github.com/ai/nanoid)** - Unique ID generation
+- **[@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/)** - Date and time manipulation
 
 ## Getting Started
 
