@@ -10,6 +10,9 @@ export const useFormValidation = () => {
   if (!import.meta.client) {
     return {
       validateStep: async () => ({}),
+      resetErrors: () => {},
+      clearFieldError: () => {},
+      errors: {} as any,
     };
   }
 
