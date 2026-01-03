@@ -51,12 +51,14 @@ Planástico is a web application that helps people discover, create, and manage 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd planastico
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -72,6 +74,7 @@ Planástico is a web application that helps people discover, create, and manage 
 4. **Configure environment variables**
 
    Copy the example file and add your Supabase credentials:
+
    ```bash
    cp .env.example .env
    ```
@@ -209,7 +212,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - Built with [Nuxt 3](https://nuxt.com/)
 - Powered by [Supabase](https://supabase.com/)
-- Icons and UI components from [Reka UI](https://reka-ui.com/)
+- UI components from [Reka UI](https://reka-ui.com/)
 - Font: [Atkinson Hyperlegible](https://fonts.google.com/specimen/Atkinson+Hyperlegible) by Braille Institute
 
 ---
