@@ -5,28 +5,33 @@
 CREATE TABLE categories (
   id BIGSERIAL PRIMARY KEY,
   name TEXT NOT NULL UNIQUE,
+  slug TEXT UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Create events table
 CREATE TABLE events (
   id BIGSERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
+  name TEXT NOT NULL,
   description TEXT,
-  location_type TEXT CHECK (location_type IN ('in-person', 'online', 'hybrid')),
-  location TEXT,
-  online_url TEXT,
-  is_recurring BOOLEAN DEFAULT FALSE,
+  place TEXT CHECK (place IN ('in-person', 'online', 'hybrid')),
+  address TEXT,
+  meeting_link TEXT,
+  frequency TEXT CHECK (frequency IN ('once', 'recurring')),
   start_date DATE,
   end_date DATE,
   start_time TIME,
   end_time TIME,
-  weekdays TEXT[], -- Array of weekdays for recurring events
-  price_type TEXT CHECK (price_type IN ('free', 'pwyw', 'fixed')),
+  recurrency TEXT[], -- Array of weekdays for recurring events (0-6)
+  cost TEXT CHECK (cost IN ('free', 'pay-what-you-want', 'fixed-price')),
   price DECIMAL(10, 2),
-  suggested_price DECIMAL(10, 2),
   contact_email TEXT,
-  management_email TEXT,
+  validation_email TEXT,
+  validation_code TEXT,
+  user_id UUID REFERENCES auth.users(id),
+  validated BOOLEAN DEFAULT FALSE,
+  email_verified BOOLEAN DEFAULT FALSE,
+  image_urls TEXT[], -- Array of image URLs
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -83,20 +88,23 @@ CREATE POLICY "Allow public read access on event_images"
   ON event_images FOR SELECT
   USING (true);
 
--- Create policies for authenticated users to insert/update their own events
--- Adjust these based on your authentication needs
-CREATE POLICY "Allow authenticated users to insert events"
+-- Create policies for inserting/updating events
+-- Allow both authenticated and anonymous users to create events
+CREATE POLICY "Allow anyone to insert events"
   ON events FOR INSERT
-  WITH CHECK (auth.role() = 'authenticated');
+  WITH CHECK (true);
 
 CREATE POLICY "Allow users to update their own events"
   ON events FOR UPDATE
-  USING (auth.role() = 'authenticated');
+  USING (
+    (auth.uid() IS NOT NULL AND user_id = auth.uid()) OR
+    (auth.uid() IS NULL AND user_id IS NULL)
+  );
 
-CREATE POLICY "Allow authenticated users to insert event_categories"
+CREATE POLICY "Allow anyone to insert event_categories"
   ON event_categories FOR INSERT
-  WITH CHECK (auth.role() = 'authenticated');
+  WITH CHECK (true);
 
-CREATE POLICY "Allow authenticated users to insert event_images"
+CREATE POLICY "Allow anyone to insert event_images"
   ON event_images FOR INSERT
-  WITH CHECK (auth.role() = 'authenticated');
+  WITH CHECK (true);
