@@ -13,6 +13,7 @@
   --planastico-shadow: 0 3px 0 var(--planastico-cold-black);
   --planastico-border-radius-s: 14px;
   --planastico-border-radius-m: 20px;
+  --planastico-border-radius-l: 36px;
   --planastico-border-s: 2px solid var(--planastico-cold-black);
   --planastico-border-m: 3px solid var(--planastico-cold-black);
   --planastico-border-l: 4px solid var(--planastico-cold-black);
