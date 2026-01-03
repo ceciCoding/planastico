@@ -132,7 +132,7 @@
         :error="field.error"
       />
     </section>
-    <FormButtonNew />
+    <AddPlanButton />
 
     <BaseChip text="Proyección" />
 
