@@ -103,7 +103,6 @@
       setTimeout(() => {
         resetForm();
       }, 300);
-
     } catch (error) {
       console.error('Error creando evento:', error);
       submitError.value =
@@ -132,7 +131,7 @@
           />
         </DialogTitle>
         <DialogDescription class="add-plan-modal__description">
-          <span class="visually-hidden">
+          <span class="sr-only">
             Formulario para añadir un nuevo plan, paso {{ currentStep }} de 4
           </span>
         </DialogDescription>
@@ -167,16 +166,14 @@
           </div>
 
           <div class="add-plan-modal__actions">
-            <button
-              type="button"
-              class="add-plan-modal__cancel-button"
+            <BaseButton
               @click="handleCancel"
+              color="white"
             >
               Cancelar
-            </button>
-            <button
+            </BaseButton>
+            <BaseButton
               type="submit"
-              class="add-plan-modal__next-button"
               :disabled="isSubmitting"
             >
               {{
@@ -186,7 +183,7 @@
                     : 'Crear plan'
                   : 'Siguiente'
               }}
-            </button>
+            </BaseButton>
           </div>
         </form>
       </DialogContent>
@@ -256,64 +253,16 @@
 
     &__actions {
       display: flex;
+      flex-direction: column;
       gap: 1rem;
       margin-top: 2rem;
       justify-content: flex-end;
     }
 
-    &__cancel-button {
-      padding: 0.75rem 1.5rem;
-      border: var(--planastico-border-s);
-      background: white;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: var(--planastico-warm-soft-gray);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--planastico-cold-black);
-        outline-offset: 2px;
+    @media screen and (min-width: 780px) {
+      &__actions {
+        flex-direction: row;
       }
     }
-
-    &__next-button {
-      padding: 0.75rem 1.5rem;
-      border: var(--planastico-border-s);
-      background: var(--planastico-yellow);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-
-      &:hover:not(:disabled) {
-        background: var(--planastico-soft-yellow);
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--planastico-cold-black);
-        outline-offset: 2px;
-      }
-    }
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
   }
 </style>
