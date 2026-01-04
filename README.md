@@ -55,7 +55,7 @@ Planástico is a web application that helps people discover, create, and manage 
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ceciCoding/planastico.git
    cd planastico
    ```
 
