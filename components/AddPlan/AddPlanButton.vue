@@ -11,7 +11,7 @@
   <AddPlanModal v-model:open="isModalOpen">
     <template #trigger>
       <button
-        class="form-button-new"
+        class="add-plan-button"
         type="button"
         aria-label="Añadir nuevo plan"
       >
@@ -22,7 +22,8 @@
 </template>
 
 <style lang="scss">
-  .form-button-new {
+  .add-plan-button {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;

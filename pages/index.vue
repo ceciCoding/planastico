@@ -82,8 +82,8 @@
     line-height: 1.5;
   }
 
-  .form-button-new {
-    position: absolute;
+  .add-plan-button {
+    position: fixed;
     bottom: 24px;
     left: 24px;
   }
