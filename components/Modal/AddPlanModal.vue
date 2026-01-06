@@ -114,7 +114,7 @@
     } catch (error) {
       console.error('Error creando evento:', error);
       submitError.value =
-        'Hubo un error al crear el plan. Por favor, inténtalo de nuevo.';
+        'Hubo un error al crear el plan. Por favor, inténtalo de nuevo más tarde.';
     } finally {
       isSubmitting.value = false;
     }
