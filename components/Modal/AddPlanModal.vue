@@ -132,14 +132,12 @@
     <DialogPortal>
       <DialogOverlay class="add-plan-modal__overlay" />
       <DialogContent class="add-plan-modal__content">
-        <DialogTitle class="add-plan-modal__title">
-          <AddPlanStepperHeader
-            :current-step="currentStep"
-            @go-back="handleGoBack"
-          />
-        </DialogTitle>
-        <DialogDescription class="add-plan-modal__description">
-          <span class="sr-only">
+        <AddPlanStepperHeader
+          :current-step="currentStep"
+          @go-back="handleGoBack"
+        />
+        <DialogDescription class="add-plan-modal__description sr-only">
+          <span>
             Formulario para añadir un nuevo plan, paso {{ currentStep }} de 4
           </span>
         </DialogDescription>
@@ -208,15 +206,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(
-        to bottom,
-        var(--planastico-soft-yellow) 0%,
-        var(--planastico-soft-yellow) 30%,
-        white 30%
-      );
       overflow-y: auto;
       z-index: 51;
-      padding: 1.5rem;
+      background: var(--planastico-white);
 
       @media screen and (min-width: 768px) {
         top: 50%;
@@ -241,6 +233,7 @@
 
     &__form {
       margin-top: 1.5rem;
+      padding: 1.5rem;
     }
 
     &__error {

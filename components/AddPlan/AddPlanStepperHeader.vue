@@ -19,35 +19,51 @@
 
 <template>
   <header class="add-plan-stepper-header">
-    <button
-      v-if="currentStep > 1"
-      type="button"
-      class="add-plan-stepper-header__back-button"
-      aria-label="Volver al paso anterior"
-      @click="handleGoBack"
-    >
-      <IconArrow direction="left" />
-    </button>
-    <h2 class="add-plan-stepper-header__title">Agregar plan</h2>
-    <span class="add-plan-stepper-header__step">
-      {{ currentStep }}/{{ totalSteps }}
-    </span>
+    <AddPlanHeaderShape class="add-plan-stepper-header__shape" />
+    <div class="add-plan-stepper-header__content">
+      <button
+        class="add-plan-stepper-header__back-button"
+        aria-label="Volver al paso anterior"
+        @click="handleGoBack"
+      >
+        <IconArrow direction="left" />
+      </button>
+      <h2 class="add-plan-stepper-header__title">Agregar plan</h2>
+      <span class="add-plan-stepper-header__step">
+        {{ currentStep }}/{{ totalSteps }}
+      </span>
+    </div>
   </header>
 </template>
 
 <style scoped lang="scss">
   .add-plan-stepper-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
     position: relative;
+    margin-bottom: 2rem;
+    min-height: 100px;
+
+    &__shape {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      z-index: 0;
+    }
+
+    &__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      padding-top: 2.7rem;
+    }
 
     &__back-button {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -75,6 +91,7 @@
       font-size: 1rem;
       font-weight: 600;
       color: var(--planastico-cold-gray);
+      padding-right: 1.5rem;
     }
   }
 </style>
