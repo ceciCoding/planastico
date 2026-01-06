@@ -131,15 +131,16 @@
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="add-plan-modal__overlay" />
-      <DialogContent class="add-plan-modal__content">
+      <DialogContent
+        class="add-plan-modal__content"
+        aria-label="Añadir nuevo plan"
+      >
         <AddPlanStepperHeader
           :current-step="currentStep"
           @go-back="handleGoBack"
         />
         <DialogDescription class="add-plan-modal__description sr-only">
-          <span>
-            Formulario para añadir un nuevo plan, paso {{ currentStep }} de 4
-          </span>
+          <span>Paso {{ currentStep }} de 4</span>
         </DialogDescription>
 
         <form
