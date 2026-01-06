@@ -5,6 +5,7 @@
     viewBox="0 0 22 15"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       d="M1 7.5H21M1 1H21M1 14H21"
