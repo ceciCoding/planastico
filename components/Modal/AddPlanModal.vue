@@ -139,7 +139,7 @@
           :current-step="currentStep"
           @go-back="handleGoBack"
         />
-        <DialogDescription class="add-plan-modal__description sr-only">
+        <DialogDescription class="sr-only">
           <span>Paso {{ currentStep }} de 4</span>
         </DialogDescription>
 
@@ -225,10 +225,6 @@
     }
 
     &__title {
-      margin: 0;
-    }
-
-    &__description {
       margin: 0;
     }
 
