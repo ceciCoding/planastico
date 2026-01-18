@@ -50,9 +50,21 @@ const step1Rules: StepRules = {
     {
       type: 'array',
       required: true,
-      min: 1,
-      max: 3,
-      message: 'Debes seleccionar entre 1 y 3 categorías',
+      message: 'Debes seleccionar al menos 1 categoría',
+    },
+    {
+      validator: (_, value, callback) => {
+        if (!value || !Array.isArray(value)) {
+          return callback();
+        }
+        if (value.length < 1) {
+          return callback(new Error('Debes seleccionar al menos 1 categoría'));
+        }
+        if (value.length > 3) {
+          return callback(new Error('Puedes seleccionar máximo 3 categorías'));
+        }
+        callback();
+      },
     },
   ],
 };
