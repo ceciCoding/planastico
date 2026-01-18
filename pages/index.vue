@@ -85,6 +85,6 @@
   .add-plan-button {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    right: 24px;
   }
 </style>
