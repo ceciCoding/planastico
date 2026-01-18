@@ -8,15 +8,17 @@
   --planastico-yellow-shade: #f6e200;
   --planastico-warm-soft-gray: #f0f0f0;
   --planastico-soft-gray-shade: #d3d2cb;
+  --planastico-warm-soft-gray-shade: #eae9de;
   --planastico-cold-black-shade: #5c6274;
   --planastico-error-red: #e20c00;
   --planastico-shadow: 0 3px 0 var(--planastico-cold-black);
+  --planastico-border-radius-xxs: 2px;
   --planastico-border-radius-s: 14px;
   --planastico-border-radius-m: 20px;
   --planastico-border-radius-l: 36px;
   --planastico-border-s: 2px solid var(--planastico-cold-black);
   --planastico-border-m: 3px solid var(--planastico-cold-black);
-  --planastico-border-l: 4px solid var(--planastico-cold-black);
+  --planastico-border-l: 5px solid var(--planastico-cold-black);
   --planastico-border-xl: 6px solid var(--planastico-cold-black);
   --planastico-max-z-index: 9999;
 }
