@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     head: {
       title: 'Planástico',
       meta: [{ name: 'description', content: 'Tu app de planes en Granada' }],
+      htmlAttrs: {
+        lang: 'es',
+      },
     },
   },
   css: ['~/assets/css/main.css'],
