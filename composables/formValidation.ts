@@ -82,7 +82,7 @@ export const useFormValidation = () => {
     const validationErrors = await validate(formData, step);
     Object.keys(validationErrors).forEach((key) => {
       const error = validationErrors[key];
-      if (error) {
+      if (error && key !== 'extra_links') {
         setFieldError(key, error);
       }
     });

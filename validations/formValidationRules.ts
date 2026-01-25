@@ -27,6 +27,19 @@ interface StepRules {
   [field: string]: FieldRules;
 }
 
+const isValidUrl = (str: string): boolean => {
+  if (!str || !str.trim()) return true;
+  const urlToTest = str.startsWith('http://') || str.startsWith('https://')
+    ? str
+    : `https://${str}`;
+  try {
+    const url = new URL(urlToTest);
+    return url.hostname.includes('.');
+  } catch {
+    return false;
+  }
+};
+
 const step1Rules: StepRules = {
   name: [
     { required: true, message: 'El título es obligatorio' },
@@ -37,6 +50,21 @@ const step1Rules: StepRules = {
     {
       max: 3000,
       message: 'La descripción no puede superar los 3000 caracteres',
+    },
+  ],
+  extra_links: [
+    {
+      validator: (_, value, callback) => {
+        if (!value || !Array.isArray(value)) {
+          return callback();
+        }
+        const nonEmptyLinks = value.filter((link) => link && link.trim());
+        const hasInvalidLink = nonEmptyLinks.some((link) => !isValidUrl(link));
+        if (hasInvalidLink) {
+          return callback(new Error('invalid'));
+        }
+        callback();
+      },
     },
   ],
   image_urls: [
