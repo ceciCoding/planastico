@@ -6,6 +6,7 @@ export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export interface Plan {
   name: string;
   description: string;
+  extra_links: string[];
   image_urls: File[];
   categories: number[];
   place: PlaceType;
