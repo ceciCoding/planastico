@@ -174,16 +174,16 @@
 
           <div class="add-plan-modal__actions">
             <BaseButton
-              @click="handleCancel"
-              color="white"
-            >
-              Cancelar
-            </BaseButton>
-            <BaseButton
               type="submit"
               :disabled="isSubmitting"
             >
               {{ submitButtonText }}
+            </BaseButton>
+            <BaseButton
+              @click="handleCancel"
+              color="white"
+            >
+              Cancelar
             </BaseButton>
           </div>
         </form>
@@ -249,12 +249,6 @@
       gap: 1rem;
       margin-top: 2rem;
       justify-content: flex-end;
-    }
-
-    @media screen and (min-width: 780px) {
-      &__actions {
-        flex-direction: row;
-      }
     }
   }
 </style>
