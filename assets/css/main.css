@@ -48,13 +48,8 @@ select {
 }
 
 button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
+  all: unset;
   cursor: pointer;
-  outline: inherit;
 }
 
 :focus {
