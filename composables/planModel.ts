@@ -7,6 +7,7 @@ export const usePlanModel = () => {
   const createEmptyPlan = (): Plan => ({
     name: '',
     description: '',
+    extra_links: [''],
     image_urls: [],
     categories: [],
     place: 'in-person',

@@ -13,6 +13,7 @@ export const useEvents = () => {
       const eventPayload = {
         name: eventData.name,
         description: eventData.description,
+        extra_links: eventData.extra_links || [],
         address: eventData.address || null,
         place: eventData.place,
         meeting_link: eventData.meeting_link || null,
