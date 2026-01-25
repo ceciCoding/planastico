@@ -44,7 +44,7 @@
           :id="`form-file-picker__description-${field.id}`"
           class="form-file-picker__description"
         >
-          Puedes cargar un máximo de 3 imágenes de hasta 2MB en formato JPG o
+          Puedes cargar un máximo de 3 imágenes de hasta 5MB en formato JPG o
           PNG. La primera será la imagen principal del plan.
         </p>
       </template>
