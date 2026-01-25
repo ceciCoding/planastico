@@ -13,7 +13,7 @@
       default: '',
     },
   });
-  const emit = defineEmits(['update:model-value']);
+  const emit = defineEmits(['update:model-value', 'erase', 'blur']);
 </script>
 
 <template>
@@ -22,6 +22,7 @@
       :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
+      :required="props.field.label.required"
     />
     <div class="form-base-input__wrapper">
       <input
@@ -40,6 +41,7 @@
         :placeholder="props.field.placeholder"
         :aria-describedby="`${field.id}-form-base-input__count`"
         @input="(e) => emit('update:model-value', e.target.value)"
+        @blur="emit('blur')"
       />
       <span
         v-if="props.field.isCurrency"
@@ -47,6 +49,14 @@
       >
         €
       </span>
+      <BaseButtonIcon
+        v-if="props.field.isErasable"
+        accessible-name="Borrar"
+        class="form-base-input__erase"
+        @click="emit('erase')"
+      >
+        <IconClose />
+      </BaseButtonIcon>
     </div>
     <span
       v-if="props.field.maxLength && !props.error.length"
@@ -130,6 +140,13 @@
       background-color: transparent;
       font-weight: 600;
       pointer-events: none;
+    }
+
+    &__erase {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 
