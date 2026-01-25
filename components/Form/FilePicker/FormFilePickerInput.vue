@@ -92,8 +92,8 @@
       />
       <button
         v-if="!previewSrc"
-        class="form-file-picker-input__icon-wrapper"
-        :class="{ 'form-file-picker-input__icon-wrapper--error': hasError }"
+        class="form-file-picker-input__icon-button"
+        :class="{ 'form-file-picker-input__icon-button--error': hasError }"
         type="button"
         :aria-label="`Subir imagen ${index}`"
         @click.prevent="inputRef.click()"
@@ -119,7 +119,9 @@
     border: var(--planastico-border-s);
     border-radius: 12px;
     overflow: hidden;
-    height: 125px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/5;
     flex: 1 1 0;
 
     &--error {
@@ -170,7 +172,7 @@
       height: 100%;
     }
 
-    &__icon-wrapper {
+    &__icon-button {
       position: absolute;
       display: flex;
       align-items: center;
@@ -179,7 +181,6 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1;
-      padding: 0.5rem;
       border-radius: 50%;
       height: 40px;
       width: 40px;
