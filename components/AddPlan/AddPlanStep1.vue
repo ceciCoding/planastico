@@ -21,6 +21,7 @@
     label: {
       name: 'Título del plan',
       isVisible: true,
+      required: true,
     },
     inputType: 'text',
     placeholder: 'Nombre del plan',
@@ -33,8 +34,9 @@
     label: {
       name: 'Describe tu plan',
       isVisible: true,
+      required: true,
     },
-    placeholder: 'Text',
+    placeholder: 'Descripción del plan',
     roundedCorner: 'right',
     maxLength: 3000,
   }));
@@ -52,6 +54,7 @@
     label: {
       name: 'Categorías',
       isVisible: true,
+      required: true,
     },
     description: 'Elige entre 1 y 3 categorías',
     categories: categories.value,
@@ -75,7 +78,14 @@
       :model-value="formData.description"
       :field="descriptionField"
       :error="errors.description"
-      @update:model-value="(value) => handleFieldUpdate(descriptionField.id, value)"
+      @update:model-value="
+        (value) => handleFieldUpdate(descriptionField.id, value)
+      "
+    />
+
+    <FormLinksGroup
+      :model-value="formData.extra_links"
+      @update:model-value="(value) => handleFieldUpdate('extra_links', value)"
     />
 
     <FormFilePicker
@@ -90,7 +100,9 @@
       :model-value="formData.categories"
       :field="categoriesField"
       :error="errors.categories"
-      @update:model-value="(value) => handleFieldUpdate(categoriesField.id, value)"
+      @update:model-value="
+        (value) => handleFieldUpdate(categoriesField.id, value)
+      "
     />
     <p v-else>Cargando categorías...</p>
   </div>
