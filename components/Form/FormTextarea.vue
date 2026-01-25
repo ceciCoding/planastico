@@ -22,6 +22,7 @@
       :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
+      :required="props.field.label.required"
     />
     <textarea
       :id="field.id"
