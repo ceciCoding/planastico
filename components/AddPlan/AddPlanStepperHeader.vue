@@ -93,5 +93,11 @@
       color: var(--planastico-cold-gray);
       padding-right: 1.5rem;
     }
+
+    @media screen and (min-width: 768px) {
+      &__content {
+        padding-top: 5rem;
+      }
+    }
   }
 </style>
