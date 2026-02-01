@@ -1,5 +1,5 @@
 <script setup>
-  import { useTimeParser } from '~/composables/timeParser.js';
+  import { useTimeParser } from '~/composables/timeParser';
 
   const props = defineProps({
     modelValue: {
