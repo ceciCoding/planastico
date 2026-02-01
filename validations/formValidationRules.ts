@@ -1,4 +1,5 @@
 import type { AddPlanFormData } from '~/composables/addPlanForm';
+import { isValidUrl } from '~/validations/url';
 
 type ValidationCallback = (error?: Error) => void;
 
@@ -26,19 +27,6 @@ type FieldRules = ValidationRule[];
 interface StepRules {
   [field: string]: FieldRules;
 }
-
-const isValidUrl = (str: string): boolean => {
-  if (!str || !str.trim()) return true;
-  const urlToTest = str.startsWith('http://') || str.startsWith('https://')
-    ? str
-    : `https://${str}`;
-  try {
-    const url = new URL(urlToTest);
-    return url.hostname.includes('.');
-  } catch {
-    return false;
-  }
-};
 
 const step1Rules: StepRules = {
   name: [
