@@ -53,6 +53,7 @@
         v-if="props.field.isErasable"
         accessible-name="Borrar"
         class="form-base-input__erase"
+        :is-naked="true"
         @click="emit('erase')"
       >
         <IconClose />
@@ -115,7 +116,8 @@
         outline-color: var(--planastico-error-red);
       }
 
-      &--has-error + .form-base-input__currency {
+      &--has-error + .form-base-input__currency,
+      &--has-error + .form-base-input__erase {
         color: var(--planastico-error-red);
       }
     }
