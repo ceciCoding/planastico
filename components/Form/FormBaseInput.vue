@@ -23,6 +23,7 @@
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
       :required="props.field.label.required"
+      :has-error="props.error.length"
     />
     <div class="form-base-input__wrapper">
       <input

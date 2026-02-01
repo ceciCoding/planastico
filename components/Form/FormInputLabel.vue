@@ -20,13 +20,20 @@
       type: Boolean,
       default: false,
     },
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
   });
 </script>
 
 <template>
   <div
     class="form-input-label"
-    :class="{ 'sr-only ': !props.isVisible }"
+    :class="{
+      'sr-only ': !props.isVisible,
+      'form-input-label--has-error': props.hasError,
+    }"
   >
     <label
       :for="props.inputId"
@@ -47,6 +54,10 @@
     &__label {
       font-size: 1.25rem;
       font-weight: 700;
+    }
+
+    &--has-error {
+      color: var(--planastico-error-red);
     }
   }
 </style>

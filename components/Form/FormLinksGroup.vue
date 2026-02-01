@@ -19,6 +19,10 @@
 
   const errors = ref<Record<number, string>>({});
 
+  const hasErrors = computed(() => {
+    return Object.values(errors.value).some((error) => error.length > 0);
+  });
+
   function validateLinkAtIndex(index: number) {
     errors.value[index] = validateLink(links.value[index]);
   }
@@ -74,6 +78,7 @@
     <FormInputLabel
       :id="labelId"
       :label="label"
+      :has-error="hasErrors"
     />
     <div class="form-links-group__inputs">
       <div

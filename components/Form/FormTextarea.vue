@@ -23,6 +23,7 @@
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
       :required="props.field.label.required"
+      :has-error="props.error.length"
     />
     <textarea
       :id="field.id"
@@ -80,20 +81,25 @@
 
       &--has-error {
         border-color: var(--planastico-error-red);
+        color: var(--planastico-error-red);
+
+        &:focus-visible {
+          outline-color: var(--planastico-error-red);
+        }
       }
     }
 
     &__count {
       align-self: flex-end;
       margin-top: 4px;
-      font-size: 12px;
+      font-size: 0.875rem;
       color: var(--planastico-cold-gray);
     }
 
     &__error {
       margin-top: 4px;
-      font-size: 12px;
-      color: var(--planastico-danger);
+      font-size: 0.875rem;
+      color: var(--planastico-error-red);
     }
   }
 </style>

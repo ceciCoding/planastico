@@ -42,6 +42,7 @@
       :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
+      :has-error="!!error"
     />
 
     <SelectRoot
