@@ -8,12 +8,17 @@
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   });
 
   const state = ref(props.modelValue);
   const emit = defineEmits(['update:modelValue']);
 
   function handleClick() {
+    if (props.disabled) return;
     state.value = !state.value;
     emit('update:modelValue', state.value);
   }
@@ -22,9 +27,13 @@
 <template>
   <button
     class="base-chip"
-    :class="{ 'base-chip--active': state }"
+    :class="{
+      'base-chip--active': state,
+      'base-chip--disabled': disabled,
+    }"
     type="button"
     :aria-pressed="String(state)"
+    :disabled="disabled"
     @click="handleClick"
   >
     {{ text }}
@@ -44,6 +53,12 @@
       background-color: var(--planastico-soft-yellow);
       border: var(--planastico-border-s);
       box-shadow: none;
+    }
+
+    &--disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      color: var(--planastico-cold-black-shade);
     }
   }
 </style>

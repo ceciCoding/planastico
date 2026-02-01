@@ -12,6 +12,10 @@
       type: String,
       default: '',
     },
+    maxSelected: {
+      type: Number,
+      default: 3,
+    },
   });
 
   const emit = defineEmits(['update:model-value']);
@@ -20,11 +24,11 @@
     let newCategories = [...props.modelValue];
 
     if (isSelected) {
-      if (newCategories.length < 3) {
+      if (newCategories.length < props.maxSelected) {
         newCategories.push(categoryId);
       }
     } else {
-      newCategories = newCategories.filter(id => id !== categoryId);
+      newCategories = newCategories.filter((id) => id !== categoryId);
     }
 
     emit('update:model-value', newCategories);
@@ -33,22 +37,23 @@
   const isCategorySelected = (categoryId) => {
     return props.modelValue.includes(categoryId);
   };
+
+  const isChipDisabled = (categoryId) => {
+    return (
+      props.modelValue.length >= props.maxSelected &&
+      !isCategorySelected(categoryId)
+    );
+  };
 </script>
 
 <template>
   <fieldset class="form-categories">
-    <legend
-      v-if="field.label?.isVisible"
-      class="form-categories__legend"
-    >
-      {{ field.label.name }}
-    </legend>
-    <p
-      v-if="field.description"
-      class="form-categories__description"
-    >
-      {{ field.description }}
-    </p>
+    <FormInputLabel
+      :input-id="field.id"
+      :label="props.field.label.name"
+      :is-visible="props.field.label.isVisible"
+      :required="props.field.required"
+    />
     <div
       class="form-categories__chips"
       role="group"
@@ -59,6 +64,7 @@
         :key="category.id"
         :text="category.name"
         :model-value="isCategorySelected(category.id)"
+        :disabled="isChipDisabled(category.id)"
         @update:model-value="(value) => handleChipToggle(category.id, value)"
       />
     </div>
@@ -94,11 +100,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
+      padding-top: 1rem;
     }
 
     &__error {
       display: block;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
       font-size: 0.875rem;
       color: var(--planastico-error-red);
     }

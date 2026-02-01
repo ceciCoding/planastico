@@ -52,11 +52,10 @@
   const categoriesField = computed(() => ({
     id: 'categories',
     label: {
-      name: 'Categorías',
+      name: 'Elige entre 1 y 3 categorías',
       isVisible: true,
       required: true,
     },
-    description: 'Elige entre 1 y 3 categorías',
     categories: categories.value,
   }));
 
