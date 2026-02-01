@@ -12,6 +12,7 @@
   --planastico-cold-black-shade: #5c6274;
   --planastico-error-red: #e20c00;
   --planastico-shadow: 0 3px 0 var(--planastico-cold-black);
+  --planastico-error-shadow: 0 3px 0 var(--planastico-error-red);
   --planastico-border-radius-xxs: 2px;
   --planastico-border-radius-s: 14px;
   --planastico-border-radius-m: 20px;
