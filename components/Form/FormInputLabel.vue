@@ -24,11 +24,13 @@
 </script>
 
 <template>
-  <div class="form-input-label">
+  <div
+    class="form-input-label"
+    :class="{ 'sr-only ': !props.isVisible }"
+  >
     <label
       :for="props.inputId"
       class="form-input-label__label"
-      :class="{ 'sr-only': !props.isVisible }"
       :style="{ color: props.color }"
     >
       {{ label }}
@@ -40,7 +42,7 @@
 
 <style lang="scss">
   .form-input-label {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     &__label {
       font-size: 1.25rem;
