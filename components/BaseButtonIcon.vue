@@ -3,9 +3,11 @@
     defineProps<{
       accessibleName: string;
       isNaked?: boolean;
+      isDisabled?: boolean;
     }>(),
     {
-      isNaked: true,
+      isNaked: false,
+      isDisabled: false,
     }
   );
 
@@ -15,8 +17,12 @@
 <template>
   <button
     class="base-button-icon"
-    :class="{ 'base-button-icon--naked': isNaked }"
+    :class="{
+      'base-button-icon--naked': isNaked,
+      'base-button-icon--disabled': isDisabled,
+    }"
     :aria-label="accessibleName"
+    :disabled="isDisabled"
     type="button"
     @click="emit('click')"
   >
@@ -29,10 +35,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.7rem;
+    height: 1.7rem;
 
-    &:not(&--naked) {
+    &:not(.base-button-icon--naked) {
       background: var(--planastico-warm-soft-gray);
       border: var(--planastico-border-s);
       border-radius: 50%;
@@ -42,6 +48,22 @@
         box-shadow: none;
         transform: translateY(2px);
       }
+    }
+
+    &--disabled:not(.base-button-icon--naked) {
+      box-shadow: none;
+      transform: none;
+      background: var(--planastico-soft-gray-shade);
+
+      &:active {
+        transform: none;
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      color: var(--planastico-cold-black-shade);
+      opacity: 0.7;
     }
   }
 </style>
