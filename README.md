@@ -97,30 +97,6 @@ npm run build
 npm run preview
 ```
 
-## Project Structure
-
-```
-planastico/
-├── assets/
-│   └── css/              # Global styles and design system
-├── components/
-│   ├── AddPlan/          # Event creation wizard components
-│   ├── Form/             # Reusable form components
-│   ├── Icon/             # Icon components
-│   └── Modal/            # Modal components
-├── composables/          # Vue composables for shared logic
-│   ├── addPlanForm.ts    # Form state management
-│   ├── formValidation.ts # Validation logic
-│   ├── planModel.ts      # Data models
-│   ├── plans.js          # Supabase CRUD operations
-│   └── imagesUpload.js   # Image handling
-├── pages/                # Application pages
-│   └── index.vue         # Homepage
-├── types/                # TypeScript type definitions
-├── validations/          # Form validation rules
-└── nuxt.config.js        # Nuxt configuration
-```
-
 ## Event Creation Workflow
 
 The event creation process is divided into 4 intuitive steps:
