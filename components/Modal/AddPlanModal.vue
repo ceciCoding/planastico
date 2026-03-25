@@ -250,5 +250,11 @@
       margin-top: 2rem;
       justify-content: flex-end;
     }
+
+    @media screen and (min-width: 780px) {
+      &__form {
+        padding: 3.5rem;
+      }
+    }
   }
 </style>
