@@ -2,15 +2,13 @@
   import {
     SelectRoot,
     SelectTrigger,
-    SelectIcon,
+    SelectValue,
     SelectPortal,
     SelectContent,
     SelectViewport,
     SelectItem,
     SelectItemText,
     SelectItemIndicator,
-    SelectScrollUpButton,
-    SelectScrollDownButton,
   } from 'reka-ui';
 
   const props = defineProps({
@@ -110,9 +108,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      width: 100%;
+      max-width: 100%;
       height: 50px;
-      padding: 10px 14px;
+      padding: 0 14px;
       background: var(--planastico-warm-soft-gray);
       border-top-left-radius: var(--planastico-border-radius-s);
       border-top-right-radius: var(--planastico-border-radius-s);
