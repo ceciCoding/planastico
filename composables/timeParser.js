@@ -28,7 +28,7 @@ export function useTimeParser(initialValue = '', emit = null) {
   function updateModelValue() {
     if (emit) {
       const timeString = formatTimeString();
-      emit('update:modelValue', timeString);
+      emit('update:model-value', timeString);
     }
   }
 
@@ -47,6 +47,7 @@ export function useTimeParser(initialValue = '', emit = null) {
     hours,
     minutes,
     timePeriod,
-    syncFromExternalValue
+    syncFromExternalValue,
+    formatTimeString
   };
 }
