@@ -16,7 +16,7 @@ export const usePlanModel = () => {
     frequency: 'once',
     start_date: null,
     end_date: null,
-    recurrency: null,
+    recurrency: [],
     start_time: '12:00 AM',
     end_time: '12:00 AM',
     cost: 'free',

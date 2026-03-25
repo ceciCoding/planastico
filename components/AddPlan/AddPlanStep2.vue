@@ -39,7 +39,7 @@
   }));
 
   const dateTypeField = computed(() => ({
-    id: 'date',
+    id: 'frequency',
     label: {
       name: '¿Qué día?',
       isVisible: true,
@@ -48,10 +48,11 @@
       { value: 'once', label: 'Una vez' },
       { value: 'recurring', label: 'Entre dos fechas' },
     ],
+    direction: 'horizontal',
   }));
 
   const singleDateField = computed(() => ({
-    id: 'single-date',
+    id: 'start_date',
     label: {
       name: 'Fecha',
       isVisible: true,
@@ -60,7 +61,7 @@
   }));
 
   const startDateField = computed(() => ({
-    id: 'start-date',
+    id: 'start_date',
     label: {
       name: 'Fecha de inicio',
       isVisible: true,
@@ -133,7 +134,9 @@
         :model-value="formData.place"
         :field="placeTypeField"
         :error="errors.place"
-        @update:model-value="(value) => handleFieldUpdate(placeTypeField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(placeTypeField.id, value)
+        "
       />
 
       <FormBaseInput
@@ -141,7 +144,9 @@
         :model-value="formData.address"
         :field="addressField"
         :error="errors.address"
-        @update:model-value="(value) => handleFieldUpdate(addressField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(addressField.id, value)
+        "
       />
 
       <FormBaseInput
@@ -149,7 +154,9 @@
         :model-value="formData.meeting_link"
         :field="meetingLinkField"
         :error="errors.meeting_link"
-        @update:model-value="(value) => handleFieldUpdate(meetingLinkField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(meetingLinkField.id, value)
+        "
       />
     </fieldset>
 
@@ -158,7 +165,10 @@
         :model-value="formData.frequency"
         :field="dateTypeField"
         :error="errors.frequency"
-        @update:model-value="(value) => handleFieldUpdate(dateTypeField.id, value)"
+        :direction="dateTypeField.direction"
+        @update:model-value="
+          (value) => handleFieldUpdate(dateTypeField.id, value)
+        "
       />
 
       <FormDatepicker
@@ -166,7 +176,9 @@
         :model-value="formData.start_date"
         :field="singleDateField"
         :error="errors.start_date"
-        @update:model-value="(value) => handleFieldUpdate(singleDateField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(singleDateField.id, value)
+        "
       />
 
       <template v-if="showDateRange">
@@ -174,21 +186,27 @@
           :model-value="formData.start_date"
           :field="startDateField"
           :error="errors.start_date"
-          @update:model-value="(value) => handleFieldUpdate(startDateField.id, value)"
+          @update:model-value="
+            (value) => handleFieldUpdate(startDateField.id, value)
+          "
         />
 
         <FormDatepicker
           :model-value="formData.end_date"
           :field="endDateField"
           :error="errors.end_date"
-          @update:model-value="(value) => handleFieldUpdate(endDateField.id, value)"
+          @update:model-value="
+            (value) => handleFieldUpdate(endDateField.id, value)
+          "
         />
 
         <FormWeekDays
           :model-value="formData.recurrency"
           :field="weekDaysField"
           :error="errors.recurrency"
-          @update:model-value="(value) => handleFieldUpdate(weekDaysField.id, value)"
+          @update:model-value="
+            (value) => handleFieldUpdate(weekDaysField.id, value)
+          "
         />
       </template>
     </fieldset>
@@ -200,14 +218,18 @@
         :model-value="formData.start_time"
         :field="startTimeField"
         :error="errors.start_time"
-        @update:model-value="(value) => handleFieldUpdate(startTimeField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(startTimeField.id, value)
+        "
       />
 
       <FormTimepicker
         :model-value="formData.end_time"
         :field="endTimeField"
         :error="errors.end_time"
-        @update:model-value="(value) => handleFieldUpdate(endTimeField.id, value)"
+        @update:model-value="
+          (value) => handleFieldUpdate(endTimeField.id, value)
+        "
       />
     </fieldset>
   </div>
