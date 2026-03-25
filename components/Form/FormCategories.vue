@@ -52,7 +52,7 @@
       :input-id="field.id"
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
-      :required="props.field.required"
+      :required="props.field.label.required"
     />
     <div
       class="form-categories__chips"
