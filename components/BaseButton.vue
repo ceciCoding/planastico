@@ -22,7 +22,7 @@
     },
   });
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (e: 'click', event: MouseEvent): void;
   }>();
 
@@ -34,7 +34,7 @@
     :class="['base-button', colorClass]"
     :type="props.type"
     :disabled="props.disabled"
-    @click="emit('click')"
+    @click="(event) => emit('click', event)"
   >
     <slot name="leading-icon" />
     <slot />

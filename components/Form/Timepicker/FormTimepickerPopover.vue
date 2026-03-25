@@ -28,9 +28,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits([
-  "update:hourModelValue",
-  "update:minuteModelValue",
-  "update:timePeriod",
+  "update:hour-model-value",
+  "update:minute-model-value",
+  "update:time-period",
 ]);
 
 const isOpen = ref(false);
@@ -69,9 +69,9 @@ watch(isOpen, (open) => {
 });
 
 function accept() {
-  emit("update:hourModelValue", tempHour.value);
-  emit("update:minuteModelValue", tempMinute.value);
-  emit("update:timePeriod", tempPeriod.value);
+  emit("update:hour-model-value", tempHour.value);
+  emit("update:minute-model-value", tempMinute.value);
+  emit("update:time-period", tempPeriod.value);
   isOpen.value = false;
 }
 

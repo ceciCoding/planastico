@@ -37,7 +37,7 @@
     },
   });
 
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:model-value']);
 
   const dateValue = computed({
     get() {
@@ -58,7 +58,7 @@
       return undefined;
     },
     set(next) {
-      emit('update:modelValue', next ? next.toString() : '');
+      emit('update:model-value', next ? next.toString() : '');
     },
   });
 

@@ -12,17 +12,23 @@
     },
   });
 
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:model-value']);
 
-  const { hours, minutes, timePeriod, syncFromExternalValue } = useTimeParser(
-    props.modelValue,
-    emit
+  const { hours, minutes, timePeriod, syncFromExternalValue, formatTimeString } = useTimeParser(
+    props.modelValue
   );
 
   watch(
     () => props.modelValue,
     (newValue) => {
       syncFromExternalValue(newValue);
+    }
+  );
+
+  watch(
+    [hours, minutes, timePeriod],
+    () => {
+      emit('update:model-value', formatTimeString());
     }
   );
 </script>
