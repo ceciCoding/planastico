@@ -70,17 +70,17 @@
 </script>
 
 <template>
-  <div
-    class="form-links-group"
-    aria-role="group"
-    :aria-labelledby="labelId"
-  >
+  <div class="form-links-group">
     <FormInputLabel
-      :id="labelId"
+      :input-id="labelId"
       :label="label"
       :has-error="hasErrors"
     />
-    <div class="form-links-group__inputs">
+    <div
+      class="form-links-group__inputs"
+      aria-role="group"
+      :id="labelId"
+    >
       <div
         v-for="(link, index) in links"
         :key="index"
