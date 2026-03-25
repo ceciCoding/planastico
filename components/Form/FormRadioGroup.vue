@@ -12,6 +12,10 @@
       type: String,
       default: '',
     },
+    direction: {
+      type: String,
+      default: 'vertical',
+    },
   });
 
   const emit = defineEmits(['update:model-value']);
@@ -31,25 +35,18 @@
     </legend>
     <div
       class="form-radio-group__options"
+      :class="`form-radio-group__options--${direction}`"
       role="radiogroup"
       :aria-labelledby="field.id"
     >
-      <label
+      <FormRadio
         v-for="option in field.options"
         :key="option.value"
-        class="form-radio-group__option"
-      >
-        <input
-          :id="`${field.id}-${option.value}`"
-          type="radio"
-          :name="field.id"
-          :value="option.value"
-          :checked="modelValue === option.value"
-          class="form-radio-group__input"
-          @change="handleChange(option.value)"
-        />
-        <span class="form-radio-group__label">{{ option.label }}</span>
-      </label>
+        :model-value="modelValue"
+        :option="option"
+        :name="field.id"
+        @update:model-value="handleChange"
+      />
     </div>
     <span
       v-if="error"
@@ -75,27 +72,15 @@
 
     &__options {
       display: flex;
-      flex-direction: column;
       gap: 0.75rem;
-    }
 
-    &__option {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-    }
+      &--horizontal {
+        flex-direction: row;
+      }
 
-    &__input {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      accent-color: var(--planastico-yellow);
-    }
-
-    &__label {
-      cursor: pointer;
-      user-select: none;
+      &--vertical {
+        flex-direction: column;
+      }
     }
 
     &__error {
