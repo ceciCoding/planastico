@@ -23,7 +23,7 @@
       :label="props.field.label.name"
       :is-visible="props.field.label.isVisible"
       :required="props.field.label.required"
-      :has-error="props.error.length"
+      :has-error="!!props.error.length"
     />
     <textarea
       :id="field.id"
