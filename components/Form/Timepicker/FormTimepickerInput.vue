@@ -1,31 +1,61 @@
 <script setup>
 const props = defineProps({
   modelValue: {
-    type: String,
-    default: ''
+    type: Number,
+    default: 0,
   },
   minValue: {
     type: Number,
-    required: true
+    required: true,
   },
   maxValue: {
     type: Number,
-    required: true
+    required: true,
   },
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const displayValue = computed(() => String(props.modelValue).padStart(2, '0'));
+
+function onInput(e) {
+  const raw = e.target.value.replace(/\D/g, '');
+  const num = parseInt(raw, 10);
+  if (!isNaN(num)) {
+    emit('update:modelValue', Math.min(Math.max(num, props.minValue), props.maxValue));
+  }
+}
+
+function onKeydown(e) {
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    const next = props.modelValue >= props.maxValue ? props.minValue : props.modelValue + 1;
+    emit('update:modelValue', next);
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    const prev = props.modelValue <= props.minValue ? props.maxValue : props.modelValue - 1;
+    emit('update:modelValue', prev);
+  }
+}
+
+function onBlur(e) {
+  const raw = e.target.value.replace(/\D/g, '');
+  const num = parseInt(raw, 10);
+  const clamped = isNaN(num) ? props.minValue : Math.min(Math.max(num, props.minValue), props.maxValue);
+  emit('update:modelValue', clamped);
+}
 </script>
 
 <template>
   <input
     class="form-timepicker-input"
-    :value="modelValue"
-    type="number"
-    :min="props.minValue"
-    :max="props.maxValue"
-    @input="(e) => emit('update:modelValue', e.target.value)"
-  >
+    type="text"
+    inputmode="numeric"
+    :value="displayValue"
+    @input="onInput"
+    @keydown="onKeydown"
+    @blur="onBlur"
+  />
 </template>
 
 <style scoped lang="scss">
@@ -45,4 +75,3 @@ const emit = defineEmits(['update:modelValue']);
   }
 }
 </style>
-

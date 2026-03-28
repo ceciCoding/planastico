@@ -14,71 +14,47 @@ const props = defineProps({
     required: true,
   },
   hourModelValue: {
-    type: [String, Number],
+    type: Number,
     required: true,
   },
   minuteModelValue: {
-    type: [String, Number],
+    type: Number,
     required: true,
-  },
-  timePeriod: {
-    type: String,
-    default: "AM",
   },
 });
 
 const emit = defineEmits([
   "update:hour-model-value",
   "update:minute-model-value",
-  "update:time-period",
 ]);
 
 const isOpen = ref(false);
 
 const tempHour = ref(props.hourModelValue);
 const tempMinute = ref(props.minuteModelValue);
-const tempPeriod = ref(props.timePeriod);
-
-const hourValue = computed({
-  get: () => tempHour.value.toString(),
-  set: (value) => (tempHour.value = parseInt(value, 10)),
-});
-
-const minuteValue = computed({
-  get: () => tempMinute.value.toString(),
-  set: (value) => (tempMinute.value = parseInt(value, 10)),
-});
-
-const timePeriodValue = computed({
-  get: () => tempPeriod.value,
-  set: (value) => (tempPeriod.value = value),
-});
 
 const formattedTime = computed(() => {
   const hour = props.hourModelValue.toString().padStart(2, "0");
   const minute = props.minuteModelValue.toString().padStart(2, "0");
-  return `${hour}:${minute} ${props.timePeriod}`;
+  return `${hour}:${minute}`;
 });
 
 watch(isOpen, (open) => {
   if (open) {
     tempHour.value = props.hourModelValue;
     tempMinute.value = props.minuteModelValue;
-    tempPeriod.value = props.timePeriod;
   }
 });
 
 function accept() {
   emit("update:hour-model-value", tempHour.value);
   emit("update:minute-model-value", tempMinute.value);
-  emit("update:time-period", tempPeriod.value);
   isOpen.value = false;
 }
 
 function cancel() {
   tempHour.value = props.hourModelValue;
   tempMinute.value = props.minuteModelValue;
-  tempPeriod.value = props.timePeriod;
   isOpen.value = false;
 }
 </script>
@@ -94,13 +70,14 @@ function cancel() {
         :side-offset="2"
         class="form-timepicker-popover__content"
       >
-        <div class="form-timepicker-popover__inputs-wrapper">
-          <FormTimepickerInput v-model="hourValue" :min-value="0" :max-value="12" />
-          <span class="form-timepicker-popover__input-separator">:</span>
-          <FormTimepickerInput v-model="minuteValue" :min-value="0" :max-value="60" />
-          <FormTimepickerPeriodToggle v-model="timePeriodValue" />
-        </div>
-        <FormActionsGroup @cancel="cancel" @accept="accept" />
+        <form @submit.prevent="accept">
+          <div class="form-timepicker-popover__inputs-wrapper">
+            <FormTimepickerInput v-model="tempHour" :min-value="0" :max-value="23" />
+            <span class="form-timepicker-popover__input-separator">:</span>
+            <FormTimepickerInput v-model="tempMinute" :min-value="0" :max-value="59" />
+          </div>
+          <FormActionsGroup @cancel="cancel" />
+        </form>
       </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>

@@ -14,7 +14,7 @@
 
   const emit = defineEmits(['update:model-value']);
 
-  const { hours, minutes, timePeriod, syncFromExternalValue, formatTimeString } = useTimeParser(
+  const { hours, minutes, syncFromExternalValue, formatTimeString } = useTimeParser(
     props.modelValue
   );
 
@@ -26,7 +26,7 @@
   );
 
   watch(
-    [hours, minutes, timePeriod],
+    [hours, minutes],
     () => {
       emit('update:model-value', formatTimeString());
     }
@@ -44,7 +44,6 @@
       :id="field.id"
       v-model:hour-model-value="hours"
       v-model:minute-model-value="minutes"
-      v-model:time-period="timePeriod"
     />
   </div>
 </template>

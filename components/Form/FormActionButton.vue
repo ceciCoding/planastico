@@ -10,10 +10,6 @@
       default: false,
     },
   });
-  const copy = {
-    accept: 'Aceptar',
-    cancel: 'Cancelar',
-  };
 
   const emit = defineEmits(['accept', 'cancel']);
 </script>
@@ -22,12 +18,13 @@
   <button
     class="form-action-button"
     :class="`form-action-button--${props.type}`"
+    :type="props.type === 'accept' ? 'submit' : 'button'"
+    :aria-label="props.type === 'accept' ? 'Aceptar' : 'Cancelar'"
     :disabled="props.disabled"
-    @click="emit(props.type)"
+    @click="props.type === 'cancel' ? emit('cancel') : undefined"
   >
-    <IconCheck v-if="props.type === 'accept'" />
-    <IconClose v-if="props.type === 'cancel'" />
-    <span>{{ copy[props.type] }}</span>
+    <IconCheck v-if="props.type === 'accept'" aria-hidden="true" />
+    <IconClose v-if="props.type === 'cancel'" aria-hidden="true" />
   </button>
 </template>
 
@@ -35,22 +32,25 @@
   .form-action-button {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 16px;
-    gap: 8px;
     flex: 1;
     background: var(--planastico-warm-soft-gray);
     border-bottom: var(--planastico-border-m);
 
     &--accept {
+      background: var(--planastico-cold-black);
       border-bottom-right-radius: var(--planastico-border-radius-m);
       border-right: var(--planastico-border-m);
-      justify-content: flex-end;
+
+      svg {
+        color: var(--planastico-white);
+      }
     }
 
     &--cancel {
       border-bottom-left-radius: var(--planastico-border-radius-m);
       border-left: var(--planastico-border-m);
-      justify-content: flex-start;
     }
 
     &:focus-visible {
