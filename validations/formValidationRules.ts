@@ -119,12 +119,8 @@ const step2Rules: StepRules = {
           if (!value) {
             return callback(new Error('El enlace de la reunión es obligatorio'));
           }
-          if (typeof value === 'string') {
-            try {
-              new URL(value);
-            } catch {
-              return callback(new Error('El enlace no es válido'));
-            }
+          if (typeof value === 'string' && !isValidUrl(value)) {
+            return callback(new Error('El enlace no es válido'));
           }
         }
         callback();
