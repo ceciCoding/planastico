@@ -1,6 +1,10 @@
 <script setup>
   const props = defineProps({
-    day: {
+    label: {
+      type: String,
+      required: true,
+    },
+    fullLabel: {
       type: String,
       required: true,
     },
@@ -10,33 +14,49 @@
     },
   });
 
-  const emit = defineEmits(['select']);
-
-  const daysMap = {
-    L: 'Lunes',
-    M: 'Martes',
-    X: 'Miércoles',
-    J: 'Jueves',
-    V: 'Viernes',
-    S: 'Sábado',
-    D: 'Domingo',
-  };
-
-  const isActive = ref(props.active);
+  const emit = defineEmits(['toggle']);
 
   function toggleDay() {
-    isActive.value = !isActive.value;
-    emit('select', { day: props.day, active: isActive.value });
+    emit('toggle');
   }
 </script>
 
 <template>
   <button
+    type="button"
     class="form-week-day"
-    :aria-label="daysMap[day]"
-    :aria-pressed="isActive"
+    :class="{ 'form-week-day--selected': active }"
+    :aria-label="fullLabel"
+    :aria-pressed="String(active)"
     @click="toggleDay"
   >
-    {{ day }}
+    {{ label }}
   </button>
 </template>
+
+<style scoped lang="scss">
+  .form-week-day {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: var(--planastico-border-s);
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--planastico-warm-soft-gray);
+    }
+
+    &--selected {
+      background: var(--planastico-soft-yellow);
+      border-color: var(--planastico-cold-black);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--planastico-cold-black);
+      outline-offset: 2px;
+    }
+  }
+</style>

@@ -56,18 +56,14 @@
       role="group"
       :aria-labelledby="field.id"
     >
-      <button
+      <FormWeekDay
         v-for="day in weekDays"
         :key="day.value"
-        type="button"
-        class="form-week-days__button"
-        :class="{ 'form-week-days__button--selected': isDaySelected(day.value) }"
-        :aria-label="day.fullLabel"
-        :aria-pressed="String(isDaySelected(day.value))"
-        @click="handleToggle(day.value)"
-      >
-        {{ day.label }}
-      </button>
+        :label="day.label"
+        :full-label="day.fullLabel"
+        :active="isDaySelected(day.value)"
+        @toggle="handleToggle(day.value)"
+      />
     </div>
     <span
       v-if="error"
@@ -95,31 +91,6 @@
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
-    }
-
-    &__button {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: var(--planastico-border-s);
-      background: white;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: var(--planastico-warm-soft-gray);
-      }
-
-      &--selected {
-        background: var(--planastico-soft-yellow);
-        border-color: var(--planastico-cold-black);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--planastico-cold-black);
-        outline-offset: 2px;
-      }
     }
 
     &__error {
