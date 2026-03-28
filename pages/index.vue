@@ -1,14 +1,14 @@
 <script setup>
   import AddPlanButton from '@/components/AddPlan/AddPlanButton.vue';
 
-  const { getEvents } = useEvents();
+  const { getPlans } = usePlans();
 
   const {
     data: plansData,
     error,
     pending,
   } = await useAsyncData('plans', async () => {
-    const result = await getEvents();
+    const result = await getPlans();
     return result.data;
   });
 

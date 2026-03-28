@@ -1,41 +1,31 @@
 <script setup>
   import {
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogOverlay,
     DialogPortal,
     DialogRoot,
-    DialogTitle,
     DialogTrigger,
   } from 'reka-ui';
 
-  const { currentStep, formData, resetForm, goToPreviousStep, goToNextStep } =
-    useAddPlanForm();
-  const { createEvent } = useEvents();
-  const { uploadEventImages } = useImageUpload();
-  const { preparePlanForDB } = usePlanModel();
-
   const isOpen = defineModel('open', { type: Boolean, default: false });
-  const isSubmitting = ref(false);
-  const submitError = ref('');
 
-  const step1Ref = ref(null);
-  const step2Ref = ref(null);
-  const step3Ref = ref(null);
-  const step4Ref = ref(null);
+  const { currentStep, resetForm, goToPreviousStep, goToNextStep } =
+    useAddPlanForm();
+  const { isSubmitting, submitError, submit } = useAddPlanSubmit(isOpen);
 
-  const submitButtonText = computed(() => {
-    if (currentStep.value === 4) {
-      return isSubmitting.value ? 'Creando...' : 'Crear plan';
-    } else {
-      return 'Siguiente';
-    }
-  });
+  const stepRefs = [ref(null), ref(null), ref(null), ref(null)];
 
-  const handleGoBack = () => {
+  const submitButtonText = computed(() =>
+    currentStep.value === 4
+      ? isSubmitting.value
+        ? 'Creando...'
+        : 'Crear plan'
+      : 'Siguiente'
+  );
+
+  const handleGoBack = () =>
     currentStep.value === 1 ? handleCancel() : goToPreviousStep();
-  };
 
   const handleCancel = () => {
     isOpen.value = false;
@@ -46,78 +36,10 @@
   };
 
   const handleNext = async () => {
-    let stepRef = null;
-    switch (currentStep.value) {
-      case 1:
-        stepRef = step1Ref.value;
-        break;
-      case 2:
-        stepRef = step2Ref.value;
-        break;
-      case 3:
-        stepRef = step3Ref.value;
-        break;
-      case 4:
-        stepRef = step4Ref.value;
-        break;
-    }
-
-    if (stepRef && stepRef.validate) {
-      const isValid = await stepRef.validate();
-      if (isValid) {
-        if (currentStep.value === 4) {
-          await handleSubmit();
-        } else {
-          goToNextStep();
-        }
-      }
-    }
-  };
-
-  const handleSubmit = async () => {
-    isSubmitting.value = true;
-    submitError.value = '';
-
-    try {
-      const planData = { ...formData.value };
-
-      if (planData.useContactEmailForManagement) {
-        planData.validation_email = planData.contact_email;
-      }
-
-      const imagesToUpload = planData.image_urls;
-
-      delete planData.useContactEmailForManagement;
-      delete planData.captchaToken;
-      delete planData.image_urls;
-
-      const cleanPlan = preparePlanForDB(planData);
-
-      const { data: event, error: eventError } = await createEvent(cleanPlan);
-
-      if (eventError) {
-        throw new Error(eventError);
-      }
-
-      if (imagesToUpload && imagesToUpload.length > 0) {
-        try {
-          await uploadEventImages(imagesToUpload, event.id);
-        } catch (imageError) {
-          submitError.value = `Evento creado pero error subiendo imágenes: ${imageError.message}`;
-        }
-      }
-
-      isOpen.value = false;
-      setTimeout(() => {
-        resetForm();
-      }, 300);
-    } catch (error) {
-      console.error('Error creando evento:', error);
-      submitError.value =
-        'Hubo un error al crear el plan. Por favor, inténtalo de nuevo más tarde.';
-    } finally {
-      isSubmitting.value = false;
-    }
+    const activeStep = stepRefs[currentStep.value - 1].value;
+    const isValid = await activeStep?.validate?.();
+    if (!isValid) return;
+    currentStep.value === 4 ? await submit() : goToNextStep();
   };
 </script>
 
@@ -149,19 +71,19 @@
         >
           <AddPlanStep1
             v-if="currentStep === 1"
-            ref="step1Ref"
+            :ref="stepRefs[0]"
           />
           <AddPlanStep2
             v-if="currentStep === 2"
-            ref="step2Ref"
+            :ref="stepRefs[1]"
           />
           <AddPlanStep3
             v-if="currentStep === 3"
-            ref="step3Ref"
+            :ref="stepRefs[2]"
           />
           <AddPlanStep4
             v-if="currentStep === 4"
-            ref="step4Ref"
+            :ref="stepRefs[3]"
           />
 
           <div

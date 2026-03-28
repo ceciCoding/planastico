@@ -3,22 +3,12 @@
   const { formData, handleFieldUpdate } = useAddPlanForm();
   const { validateStep, errors } = useFormValidation();
 
-  const contactEmailField = computed(() => ({
-    id: 'contact-email',
-    label: {
-      name: 'Correo de contacto',
-      isVisible: true,
-    },
-    inputType: 'email',
-    placeholder: 'correo@ejemplo.com',
-    roundedCorner: 'right',
-  }));
-
   const managementEmailField = computed(() => ({
     id: 'management-email',
     label: {
       name: 'Correo de gestión',
       isVisible: true,
+      required: true,
     },
     inputType: 'email',
     placeholder: 'correo@ejemplo.com',
@@ -28,16 +18,30 @@
   const useContactEmailCheckboxField = computed(() => ({
     id: 'use-contact-email',
     label: {
-      name: 'Quiero que este sea mi correo de contacto',
+      name: 'Quiero que este sea también mi correo de contacto público',
       isVisible: true,
     },
   }));
 
+  const contactEmailField = computed(() => ({
+    id: 'contact-email',
+    label: {
+      name: 'Correo de contacto público',
+      isVisible: true,
+      required: true,
+    },
+    inputType: 'email',
+    placeholder: 'correo@ejemplo.com',
+    roundedCorner: 'right',
+  }));
+
   const handleUseContactEmailUpdate = (value) => {
-    handleFieldUpdate(contactEmailField.id, value);
+    handleFieldUpdate('useContactEmailForManagement', value);
 
     if (value) {
-      handleFieldUpdate('validation_email', formData.value.contact_email);
+      handleFieldUpdate('contact_email', formData.value.validation_email);
+    } else {
+      handleFieldUpdate('contact_email', '');
     }
   };
 
@@ -49,29 +53,29 @@
 <template>
   <div class="add-plan-step-4">
     <FormBaseInput
-      :model-value="formData.contact_email"
-      :field="contactEmailField"
-      :error="errors.contact_email"
-      @update:model-value="(value) => handleFieldUpdate(contactEmailField.id, value)"
+      :model-value="formData.validation_email"
+      :field="managementEmailField"
+      :error="errors.validation_email"
+      @update:model-value="(value) => handleFieldUpdate('validation_email', value)"
     />
 
     <fieldset class="add-plan-step-4__fieldset">
       <legend class="add-plan-step-4__legend">
-        Correo para gestión del plan
+        Correo de contacto público
       </legend>
-
-      <FormBaseInput
-        v-if="!formData.useContactEmailForManagement"
-        :model-value="formData.validation_email"
-        :field="managementEmailField"
-        :error="errors.validation_email"
-        @update:model-value="(value) => handleFieldUpdate(managementEmailField.id, value)"
-      />
 
       <FormCheckbox
         :model-value="formData.useContactEmailForManagement"
         :field="useContactEmailCheckboxField"
         @update:model-value="handleUseContactEmailUpdate"
+      />
+
+      <FormBaseInput
+        v-if="!formData.useContactEmailForManagement"
+        :model-value="formData.contact_email"
+        :field="contactEmailField"
+        :error="errors.contact_email"
+        @update:model-value="(value) => handleFieldUpdate('contact_email', value)"
       />
     </fieldset>
 
