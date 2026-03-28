@@ -76,6 +76,7 @@
 
         <form
           class="add-plan-modal__form"
+          novalidate
           @submit.prevent="handleNext"
         >
           <AddPlanStep1
