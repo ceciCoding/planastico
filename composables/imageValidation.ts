@@ -1,14 +1,20 @@
-export const useImageValidation = () => {
-  const validFormats = [
-    'image/png',
-    'image/jpeg',
-    'image/jpg',
-    'image/webp',
-    'image/avif',
-  ];
-  const maxSize = 5 * 1024 * 1024;
+interface ImageValidationResult {
+  valid: boolean;
+  error?: string;
+}
 
-  const validateImage = (file) => {
+const validFormats = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/webp',
+  'image/avif',
+];
+
+const maxSize = 5 * 1024 * 1024;
+
+export const useImageValidation = () => {
+  const validateImage = (file: File): ImageValidationResult => {
     if (!validFormats.includes(file.type)) {
       return { valid: false, error: 'Formato no soportado' };
     }

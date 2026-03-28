@@ -1,8 +1,8 @@
-import type { Plan } from '~/types/plan';
+import type { PlanForm } from '~/types/plan';
 
 export type StepNumber = 1 | 2 | 3 | 4;
 
-export interface AddPlanFormData extends Plan {
+export interface AddPlanFormData extends PlanForm {
   useContactEmailForManagement: boolean;
   captchaToken: string;
 }
@@ -32,9 +32,7 @@ export function useAddPlanForm() {
   }
 
   function goToStep(step: StepNumber): void {
-    if (typeof step !== 'number' || step < 1 || step > 4) {
-      return;
-    }
+    if (typeof step !== 'number' || step < 1 || step > 4) return;
     currentStep.value = step;
   }
 
