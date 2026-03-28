@@ -2,7 +2,7 @@
   const STEP_INDEX = 1;
   const { formData, handleFieldUpdate } = useAddPlanForm();
   const { validateStep, errors } = useFormValidation();
-  const { getCategories } = useEvents();
+  const { getCategories } = usePlans();
 
   const categories = ref([]);
   const isLoadingCategories = ref(false);

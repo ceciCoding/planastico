@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { ref, onMounted } from 'vue';
 
-export function useUuid() {
+export function useUuid(): Ref<string> {
   const id = ref('');
 
   onMounted(() => {
