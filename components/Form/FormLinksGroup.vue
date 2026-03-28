@@ -43,6 +43,7 @@
 
   function updateLink(index: number, value: string) {
     links.value[index] = value;
+    errors.value[index] = '';
     updateModelValue();
   }
 
