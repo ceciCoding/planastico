@@ -35,6 +35,10 @@
       type: Object,
       required: true,
     },
+    error: {
+      type: String,
+      default: '',
+    },
   });
 
   const emit = defineEmits(['update:model-value']);
@@ -86,7 +90,10 @@
         v-slot="{ segments }"
         :id="field.id"
         class="form-datepicker__field"
-        :class="`form-datepicker__field--${props.field.roundedCorner}`"
+        :class="[
+          `form-datepicker__field--${props.field.roundedCorner}`,
+          { 'form-datepicker__field--has-error': props.error },
+        ]"
       >
         <template
           v-for="item in segments"
@@ -198,6 +205,13 @@
         </DatePickerCalendar>
       </DatePickerContent>
     </DatePickerRoot>
+    <span
+      v-if="props.error"
+      class="form-datepicker__error"
+      aria-live="polite"
+    >
+      {{ props.error }}
+    </span>
   </div>
 </template>
 
@@ -228,6 +242,17 @@
       &--right {
         border-top-right-radius: 14px;
       }
+
+      &--has-error {
+        border-color: var(--planastico-error-red);
+        color: var(--planastico-error-red);
+      }
+    }
+
+    &__error {
+      font-size: 0.875rem;
+      padding-top: 0.5rem;
+      color: var(--planastico-error-red);
     }
 
     &__field-segment,
