@@ -12,6 +12,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      SUPABASE_URL: https://placeholder.supabase.co
+      SUPABASE_KEY: placeholder
+
     steps:
       - uses: actions/checkout@v4
 
