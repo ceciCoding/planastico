@@ -1,18 +1,18 @@
 # Planástico
 
-> Your go-to community events platform for Granada, Spain
+> Your go-to community plans platform for Granada, Spain
 
-Planástico is a web application that helps people discover, create, and manage local events and activities in Granada.
+Planástico is a web application that helps people discover, create, and manage local plans and activities in Granada.
 
 ## Features
 
-- **Event Discovery**: Browse upcoming events and activities happening in Granada
-- **Event Creation**: Multi-step wizard to create and publish events
-- **Flexible Event Types**: Support for in-person, online, and hybrid events
-- **Smart Scheduling**: Single-date or recurring events with custom weekday selection
-- **Multiple Pricing Models**: Free events, pay-what-you-want, or fixed pricing
-- **Rich Media**: Upload up to 3 images per event with automatic compression
-- **Category System**: Organize events with customizable categories
+- **Plan Discovery**: Browse upcoming plans and activities happening in Granada
+- **Plan Creation**: Multi-step wizard to create and publish plans
+- **Flexible Plan Types**: Support for in-person, online, and hybrid plans
+- **Smart Scheduling**: Single-date or recurring plans with custom weekday selection
+- **Multiple Pricing Models**: Free plans, pay-what-you-want, or fixed pricing
+- **Rich Media**: Upload up to 3 images per plan with automatic compression
+- **Category System**: Organize plans with customizable categories
 - **Image Optimization**: Automatic WebP conversion and compression for optimal performance
 
 ## Tech Stack
@@ -70,7 +70,7 @@ Planástico is a web application that helps people discover, create, and manage 
    Follow the detailed setup guide in [supabase/README.md](supabase/README.md). You'll need to:
    - Create a Supabase project
    - Run the database schema from [supabase/schema.sql](supabase/schema.sql)
-   - Create the `event-images` storage bucket
+   - Create the `plan-images` storage bucket
    - Get your API credentials
 
 4. **Configure environment variables**
@@ -97,23 +97,23 @@ npm run build
 npm run preview
 ```
 
-## Event Creation Workflow
+## Plan Creation Workflow
 
-The event creation process is divided into 4 intuitive steps:
+The plan creation process is divided into 4 intuitive steps:
 
 1. **Basic Information**
-   - Event title and description
+   - Plan title and description
    - Image uploads (up to 3 images)
    - Category selection (1-3 categories)
 
 2. **Location & Timing**
-   - Event type (in-person, online, or hybrid)
+   - Plan type (in-person, online, or hybrid)
    - Date selection (single or recurring)
    - Start and end times
-   - Weekday selection for recurring events
+   - Weekday selection for recurring plans
 
 3. **Pricing**
-   - Free events
+   - Free plans
    - Pay-what-you-want with suggested amount
    - Fixed price
 
@@ -145,14 +145,14 @@ Planástico features a bold, accessible design with:
 
 ### Main Tables
 
-- **events** - Core event data
-- **categories** - Event categories
-- **event_categories** - Many-to-many relationship between events and categories
-- **event_images** - Image metadata and URLs
+- **plans** - Core plan data
+- **categories** - Plan categories
+- **plan_categories** - Many-to-many relationship between plans and categories
+- **plan_images** - Image metadata and URLs
 
 ### Storage Buckets
 
-- **event-images** - Stores compressed event photos in WebP format
+- **plan-images** - Stores compressed plan photos in WebP format
 
 ## Development
 
