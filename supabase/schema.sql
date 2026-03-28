@@ -11,23 +11,23 @@ CREATE TABLE public.categories (
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT categories_pkey PRIMARY KEY (id)
 );
-CREATE TABLE public.event_categories (
-  event_id uuid NOT NULL,
+CREATE TABLE public.plan_categories (
+  plan_id uuid NOT NULL,
   category_id integer NOT NULL,
-  CONSTRAINT event_categories_pkey PRIMARY KEY (event_id, category_id),
-  CONSTRAINT event_categories_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id),
-  CONSTRAINT event_categories_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id)
+  CONSTRAINT plan_categories_pkey PRIMARY KEY (plan_id, category_id),
+  CONSTRAINT plan_categories_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES public.plans(id),
+  CONSTRAINT plan_categories_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id)
 );
-CREATE TABLE public.event_images (
+CREATE TABLE public.plan_images (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
-  event_id uuid NOT NULL,
+  plan_id uuid NOT NULL,
   storage_path text NOT NULL,
   position integer NOT NULL CHECK ("position" >= 1 AND "position" <= 3),
   created_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT event_images_pkey PRIMARY KEY (id),
-  CONSTRAINT event_images_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id)
+  CONSTRAINT plan_images_pkey PRIMARY KEY (id),
+  CONSTRAINT plan_images_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES public.plans(id)
 );
-CREATE TABLE public.events (
+CREATE TABLE public.plans (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   name text NOT NULL CHECK (char_length(name) <= 70),
   description text NOT NULL CHECK (char_length(description) <= 3000),
