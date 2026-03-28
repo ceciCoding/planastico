@@ -16,6 +16,10 @@ interface PlanWithRelations extends Plan {
     category_id: number;
     categories: CategoryWithSlug;
   }[];
+  plan_images: {
+    storage_path: string;
+    position: number;
+  }[];
 }
 
 type ApiResult<T> = Promise<{ data: T | null; error: string | null }>;
@@ -103,7 +107,8 @@ export const usePlans = () => {
               name,
               slug
             )
-          )
+          ),
+          plan_images (storage_path, position)
         `
         )
         .eq('id', planId)
@@ -132,7 +137,8 @@ export const usePlans = () => {
               name,
               slug
             )
-          )
+          ),
+          plan_images (storage_path, position)
         `
         )
         .eq('validated', true)

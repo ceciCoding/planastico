@@ -45,7 +45,10 @@
 
     if (currentStep.value === TOTAL_STEPS) {
       const success = await submit();
-      if (success) handleCancel();
+      if (success) {
+        await refreshNuxtData('plans');
+        handleCancel();
+      }
     } else {
       goToNextStep();
     }
