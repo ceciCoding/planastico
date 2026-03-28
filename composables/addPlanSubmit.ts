@@ -1,7 +1,5 @@
-import type { Ref } from 'vue';
-
-export function useAddPlanSubmit(isOpen: Ref<boolean>) {
-  const { formData, resetForm } = useAddPlanForm();
+export function useAddPlanSubmit() {
+  const { formData } = useAddPlanForm();
   const { createPlan } = usePlans();
   const { compressAndUpload, deletePlanImages } = useImageUpload();
   const { preparePlanForDB } = usePlanModel();
@@ -9,7 +7,7 @@ export function useAddPlanSubmit(isOpen: Ref<boolean>) {
   const isSubmitting = ref(false);
   const submitError = ref('');
 
-  const submit = async () => {
+  const submit = async (): Promise<boolean> => {
     isSubmitting.value = true;
     submitError.value = '';
 
@@ -36,13 +34,13 @@ export function useAddPlanSubmit(isOpen: Ref<boolean>) {
       const { error: planError } = await createPlan(cleanPlan, uploadedPaths);
       if (planError) throw new Error(planError);
 
-      isOpen.value = false;
-      setTimeout(resetForm, 300);
+      return true;
     } catch (error) {
       await deletePlanImages(uploadedPaths);
       console.error('Error creando plan:', error);
       submitError.value =
         'Hubo un error al crear el plan. Por favor, inténtalo de nuevo más tarde.';
+      return false;
     } finally {
       isSubmitting.value = false;
     }

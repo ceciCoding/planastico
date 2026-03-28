@@ -8,16 +8,19 @@
     DialogTrigger,
   } from 'reka-ui';
 
+  const TOTAL_STEPS = 4;
+  const CLOSE_ANIMATION_MS = 300;
+
   const isOpen = defineModel('open', { type: Boolean, default: false });
 
   const { currentStep, resetForm, goToPreviousStep, goToNextStep } =
     useAddPlanForm();
-  const { isSubmitting, submitError, submit } = useAddPlanSubmit(isOpen);
+  const { isSubmitting, submitError, submit } = useAddPlanSubmit();
 
-  const stepRefs = [ref(null), ref(null), ref(null), ref(null)];
+  const stepRefs = Array.from({ length: TOTAL_STEPS }, () => ref(null));
 
   const submitButtonText = computed(() =>
-    currentStep.value === 4
+    currentStep.value === TOTAL_STEPS
       ? isSubmitting.value
         ? 'Creando...'
         : 'Crear plan'
@@ -32,14 +35,20 @@
     setTimeout(() => {
       resetForm();
       submitError.value = '';
-    }, 300);
+    }, CLOSE_ANIMATION_MS);
   };
 
   const handleNext = async () => {
     const activeStep = stepRefs[currentStep.value - 1].value;
     const isValid = await activeStep?.validate?.();
     if (!isValid) return;
-    currentStep.value === 4 ? await submit() : goToNextStep();
+
+    if (currentStep.value === TOTAL_STEPS) {
+      const success = await submit();
+      if (success) handleCancel();
+    } else {
+      goToNextStep();
+    }
   };
 </script>
 
@@ -62,7 +71,7 @@
           @go-back="handleGoBack"
         />
         <DialogDescription class="sr-only">
-          <span>Paso {{ currentStep }} de 4</span>
+          <span>Paso {{ currentStep }} de {{ TOTAL_STEPS }}</span>
         </DialogDescription>
 
         <form
