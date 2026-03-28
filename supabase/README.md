@@ -23,8 +23,8 @@ This guide will help you set up the Supabase backend for Planástico.
 6. Click **"Run"** or press `Cmd/Ctrl + Enter`
 
 You should see a success message. This creates:
-- ✅ All required tables (`events`, `categories`, `event_categories`, `event_images`)
-- ✅ Default event categories (Music, Arts & Culture, Sports, etc.)
+- ✅ All required tables (`plans`, `categories`, `plan_categories`, `plan_images`)
+- ✅ Default plan categories (Music, Arts & Culture, Sports, etc.)
 - ✅ Row Level Security (RLS) policies
 - ✅ Public read access for all users
 
@@ -33,7 +33,7 @@ You should see a success message. This creates:
 1. In your Supabase Dashboard, go to **Storage** (left sidebar)
 2. Click **"Create a new bucket"**
 3. Configure the bucket:
-   - **Name**: `event-images` (must be exactly this)
+   - **Name**: `plan-images` (must be exactly this)
    - **Public bucket**: Toggle **ON** ✅
    - **File size limit**: 5 MB (optional but recommended)
    - **Allowed MIME types**: `image/png, image/jpeg, image/webp, image/avif` (optional)
@@ -73,8 +73,8 @@ Visit `http://localhost:3000`
 
 If everything is configured correctly:
 - ✅ The app starts without errors
-- ✅ You can see the events page
-- ✅ You can open the "Create Event" modal
+- ✅ You can see the plans page
+- ✅ You can open the "Create Plan" modal
 - ✅ You can browse categories
 
 ## Database Schema Overview
@@ -83,16 +83,16 @@ If everything is configured correctly:
 
 | Table | Description |
 |-------|-------------|
-| **events** | Main event data (title, description, dates, location, pricing) |
-| **categories** | Event categories (Music, Sports, etc.) |
-| **event_categories** | Many-to-many relationship between events and categories |
-| **event_images** | Event photo URLs and metadata |
+| **plans** | Main plan data (title, description, dates, location, pricing) |
+| **categories** | Plan categories (Music, Sports, etc.) |
+| **plan_categories** | Many-to-many relationship between plans and categories |
+| **plan_images** | Plan photo URLs and metadata |
 
 ### Storage Buckets
 
 | Bucket | Purpose |
 |--------|---------|
-| **event-images** | Stores event photos (automatically compressed to WebP format) |
+| **plan-images** | Stores plan photos (automatically compressed to WebP format) |
 
 ## Troubleshooting
 
@@ -108,9 +108,9 @@ If everything is configured correctly:
 - Go to **Table Editor** and verify all 4 tables exist
 
 ### ❌ Image upload errors
-- Confirm the `event-images` bucket exists in Storage
+- Confirm the `plan-images` bucket exists in Storage
 - Make sure it's set to **Public** (toggle should be ON)
-- Check bucket name is exactly `event-images` (no typos)
+- Check bucket name is exactly `plan-images` (no typos)
 
 ### ❌ "Categories not loading"
 - The `schema.sql` includes default categories
