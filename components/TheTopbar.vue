@@ -7,6 +7,7 @@
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from 'reka-ui';
+  // @ts-expect-error — AddPlanModal.vue has no lang="ts", implicit any is expected
   import AddPlanModal from '@/components/Modal/AddPlanModal.vue';
 
   const user = useSupabaseUser();

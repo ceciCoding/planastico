@@ -4,7 +4,7 @@ interface SavedPlanWithPlan {
   id: string;
   user_id: string;
   plan_id: string;
-  created_at: string;
+  created_at: string | null;
   plans: Plan;
 }
 
@@ -26,7 +26,7 @@ export const useSavedPlans = () => {
 
       if (error) throw error;
 
-      return { data, error: null };
+      return { data: data as unknown as SavedPlanWithPlan[], error: null };
     } catch (error: unknown) {
       console.error('Error al obtener planes guardados:', error);
       return { data: null, error: (error as Error).message };
