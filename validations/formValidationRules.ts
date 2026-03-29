@@ -226,10 +226,9 @@ const step4Rules: StepRules = {
       },
     },
   ],
-  // TODO: Captcha comentado temporalmente
-  // captchaToken: [
-  //   { required: true, message: 'Debes completar el captcha' },
-  // ],
+  captchaToken: [
+    { required: true, message: 'Debes completar el captcha' },
+  ],
 };
 
 export const stepsRulesMap: Record<number, StepRules> = {

@@ -22,6 +22,7 @@ Planástico is a web application that helps people discover, create, and manage 
 - **[Nuxt 3](https://nuxt.com/)** - Vue.js meta-framework
 - **[Vue 3](https://vuejs.org/)** - Progressive JavaScript framework
 - **[TypeScript](https://www.typescriptlang.org/)** - Type safety with strict mode
+- **[Pinia](https://pinia.vuejs.org/)** - State management
 - **[Reka UI](https://reka-ui.com/)** - Headless UI component library
 - **[Sass](https://sass-lang.com/)** - CSS preprocessing
 
@@ -32,6 +33,7 @@ Planástico is a web application that helps people discover, create, and manage 
   - Authentication
   - Storage for event images
   - Real-time capabilities
+- **[Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/)** - Bot protection on plan creation
 
 ### Utilities
 
@@ -75,13 +77,20 @@ Planástico is a web application that helps people discover, create, and manage 
 
 4. **Configure environment variables**
 
-   Copy the example file and add your Supabase credentials:
+   Copy the example file and fill in your credentials:
 
    ```bash
    cp .env.example .env
    ```
 
-   Edit `.env` with your project's URL and API key.
+   | Variable | Description |
+   |----------|-------------|
+   | `SUPABASE_URL` | Your Supabase project URL |
+   | `SUPABASE_KEY` | Supabase anon/public key |
+   | `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (public) |
+   | `NUXT_TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key (server-only) |
+
+   > For local development use the [Cloudflare test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/).
 
 5. **Start the development server**
    ```bash
@@ -118,9 +127,9 @@ The plan creation process is divided into 4 intuitive steps:
    - Fixed price
 
 4. **Contact & Validation**
-   - Contact email
-   - Management email
-   - Validation system
+   - Management email (for plan ownership)
+   - Public contact email
+   - Cloudflare Turnstile captcha (bot protection)
 
 ## Design Philosophy
 

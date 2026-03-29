@@ -60,6 +60,10 @@ You should see a success message. This creates:
    ```env
    SUPABASE_URL=https://your-project-id.supabase.co
    SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+   # Cloudflare Turnstile (see README.md for test keys)
+   NUXT_PUBLIC_TURNSTILE_SITE_KEY=your-site-key
+   NUXT_TURNSTILE_SECRET_KEY=your-secret-key
    ```
 
 ## 6. Test Your Setup

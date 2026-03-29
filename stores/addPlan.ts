@@ -83,7 +83,6 @@ export const useAddPlanStore = defineStore('addPlan', () => {
   }
 
   async function submit(): Promise<boolean> {
-    const { createPlan } = usePlans();
     const { compressAndUpload, deletePlanImages } = useImageUpload();
 
     isSubmitting.value = true;
@@ -98,9 +97,12 @@ export const useAddPlanStore = defineStore('addPlan', () => {
       }
 
       const imageFiles = planData.image_urls as File[];
+      const captchaToken = planData.captchaToken as string;
+      const categories = planData.categories as number[];
       delete planData.useContactEmailForManagement;
       delete planData.captchaToken;
       delete planData.image_urls;
+      delete planData.categories;
 
       const cleanPlan = preparePlanForDB(planData);
 
@@ -108,8 +110,11 @@ export const useAddPlanStore = defineStore('addPlan', () => {
         uploadedPaths = await compressAndUpload(imageFiles);
       }
 
-      const { error: planError } = await createPlan(cleanPlan, uploadedPaths);
-      if (planError) throw new Error(planError);
+      await $fetch('/api/plans', {
+        method: 'POST',
+        body: { plan: cleanPlan, categories, imagePaths: uploadedPaths, captchaToken },
+      });
+
       return true;
     } catch (error) {
       await deletePlanImages(uploadedPaths);

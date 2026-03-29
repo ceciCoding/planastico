@@ -33,6 +33,11 @@
     roundedCorner: 'right',
   }));
 
+  const captchaToken = computed({
+    get: () => store.formData.captchaToken,
+    set: (value) => store.handleFieldUpdate('captchaToken', value),
+  });
+
   const handleUseContactEmailUpdate = (value) => {
     store.handleFieldUpdate('useContactEmailForManagement', value);
     if (value) {
@@ -73,10 +78,10 @@
     </fieldset>
 
     <div class="add-plan-step-4__captcha">
-      <!-- TODO: Integrar Cloudflare Turnstile aquí -->
-      <p class="add-plan-step-4__captcha-placeholder">
-        [Captcha de Cloudflare Turnstile - Por implementar]
-      </p>
+      <Turnstile
+        v-model="captchaToken"
+        class="add-plan-step-4__captcha-widget"
+      />
       <span
         v-if="store.errors.captchaToken"
         class="add-plan-step-4__error"
@@ -113,14 +118,9 @@
       margin-top: 1rem;
     }
 
-    &__captcha-placeholder {
-      padding: 2rem;
-      background: var(--planastico-warm-soft-gray);
-      border: 2px dashed var(--planastico-cold-gray);
-      border-radius: 8px;
-      text-align: center;
-      color: var(--planastico-cold-gray);
-      font-style: italic;
+    &__captcha-widget {
+      display: flex;
+      justify-content: center;
     }
 
     &__error {
