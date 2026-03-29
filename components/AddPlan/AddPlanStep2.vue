@@ -1,7 +1,5 @@
 <script setup>
-  const STEP_INDEX = 2;
-  const { formData, handleFieldUpdate } = useAddPlanForm();
-  const { validateStep, errors } = useFormValidation();
+  const store = useAddPlanStore();
 
   const placeTypeField = computed(() => ({
     id: 'place',
@@ -104,109 +102,84 @@
 
   const showAddressField = computed(() => {
     return (
-      formData.value.place === 'in-person' || formData.value.place === 'hybrid'
+      store.formData.place === 'in-person' || store.formData.place === 'hybrid'
     );
   });
 
   const showMeetingLinkField = computed(() => {
     return (
-      formData.value.place === 'online' || formData.value.place === 'hybrid'
+      store.formData.place === 'online' || store.formData.place === 'hybrid'
     );
   });
 
-  const showSingleDate = computed(() => {
-    return formData.value.frequency === 'once';
-  });
-
-  const showDateRange = computed(() => {
-    return formData.value.frequency === 'recurring';
-  });
-
-  defineExpose({
-    validate: () => validateStep(formData.value, STEP_INDEX),
-  });
+  const showSingleDate = computed(() => store.formData.frequency === 'once');
+  const showDateRange = computed(() => store.formData.frequency === 'recurring');
 </script>
 
 <template>
   <div class="add-plan-step-2">
     <fieldset class="add-plan-step-2__fieldset">
       <FormSelect
-        :model-value="formData.place"
+        :model-value="store.formData.place"
         :field="placeTypeField"
-        :error="errors.place"
-        @update:model-value="
-          (value) => handleFieldUpdate(placeTypeField.id, value)
-        "
+        :error="store.errors.place"
+        @update:model-value="(value) => store.handleFieldUpdate(placeTypeField.id, value)"
       />
 
       <FormBaseInput
         v-if="showAddressField"
-        :model-value="formData.address"
+        :model-value="store.formData.address"
         :field="addressField"
-        :error="errors.address"
-        @update:model-value="
-          (value) => handleFieldUpdate(addressField.id, value)
-        "
+        :error="store.errors.address"
+        @update:model-value="(value) => store.handleFieldUpdate(addressField.id, value)"
       />
 
       <FormBaseInput
         v-if="showMeetingLinkField"
-        :model-value="formData.meeting_link"
+        :model-value="store.formData.meeting_link"
         :field="meetingLinkField"
-        :error="errors.meeting_link"
-        @update:model-value="
-          (value) => handleFieldUpdate(meetingLinkField.id, value)
-        "
+        :error="store.errors.meeting_link"
+        @update:model-value="(value) => store.handleFieldUpdate(meetingLinkField.id, value)"
       />
     </fieldset>
 
     <fieldset class="add-plan-step-2__fieldset">
       <FormRadioGroup
-        :model-value="formData.frequency"
+        :model-value="store.formData.frequency"
         :field="dateTypeField"
-        :error="errors.frequency"
+        :error="store.errors.frequency"
         :direction="dateTypeField.direction"
-        @update:model-value="
-          (value) => handleFieldUpdate(dateTypeField.id, value)
-        "
+        @update:model-value="(value) => store.handleFieldUpdate(dateTypeField.id, value)"
       />
 
       <FormDatepicker
         v-if="showSingleDate"
-        :model-value="formData.start_date"
+        :model-value="store.formData.start_date"
         :field="singleDateField"
-        :error="errors.start_date"
-        @update:model-value="
-          (value) => handleFieldUpdate(singleDateField.id, value)
-        "
+        :error="store.errors.start_date"
+        @update:model-value="(value) => store.handleFieldUpdate(singleDateField.id, value)"
       />
 
       <template v-if="showDateRange">
         <FormDatepicker
-          :model-value="formData.start_date"
+          :model-value="store.formData.start_date"
           :field="startDateField"
-          :error="errors.start_date"
-          @update:model-value="
-            (value) => handleFieldUpdate(startDateField.id, value)
-          "
+          :error="store.errors.start_date"
+          @update:model-value="(value) => store.handleFieldUpdate(startDateField.id, value)"
         />
 
         <FormDatepicker
-          :model-value="formData.end_date"
+          :model-value="store.formData.end_date"
           :field="endDateField"
-          :error="errors.end_date"
-          @update:model-value="
-            (value) => handleFieldUpdate(endDateField.id, value)
-          "
+          :error="store.errors.end_date"
+          @update:model-value="(value) => store.handleFieldUpdate(endDateField.id, value)"
         />
 
         <FormWeekDays
-          :model-value="formData.recurrency"
+          :model-value="store.formData.recurrency"
           :field="weekDaysField"
-          :error="errors.recurrency"
-          @update:model-value="
-            (value) => handleFieldUpdate(weekDaysField.id, value)
-          "
+          :error="store.errors.recurrency"
+          @update:model-value="(value) => store.handleFieldUpdate(weekDaysField.id, value)"
         />
       </template>
     </fieldset>
@@ -215,21 +188,17 @@
       <legend class="add-plan-step-2__legend">¿A qué hora?</legend>
 
       <FormTimepicker
-        :model-value="formData.start_time"
+        :model-value="store.formData.start_time"
         :field="startTimeField"
-        :error="errors.start_time"
-        @update:model-value="
-          (value) => handleFieldUpdate(startTimeField.id, value)
-        "
+        :error="store.errors.start_time"
+        @update:model-value="(value) => store.handleFieldUpdate(startTimeField.id, value)"
       />
 
       <FormTimepicker
-        :model-value="formData.end_time"
+        :model-value="store.formData.end_time"
         :field="endTimeField"
-        :error="errors.end_time"
-        @update:model-value="
-          (value) => handleFieldUpdate(endTimeField.id, value)
-        "
+        :error="store.errors.end_time"
+        @update:model-value="(value) => store.handleFieldUpdate(endTimeField.id, value)"
       />
     </fieldset>
   </div>

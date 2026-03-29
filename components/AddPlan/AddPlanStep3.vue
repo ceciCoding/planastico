@@ -1,7 +1,5 @@
 <script setup>
-  const STEP_INDEX = 3;
-  const { formData, handleFieldUpdate } = useAddPlanForm();
-  const { validateStep, errors } = useFormValidation();
+  const store = useAddPlanStore();
 
   const costTypeField = computed(() => ({
     id: 'cost',
@@ -28,39 +26,32 @@
     isCurrency: true,
   }));
 
-  const showPriceField = computed(() => {
-    return formData.value.cost !== 'free';
-  });
+  const showPriceField = computed(() => store.formData.cost !== 'free');
 
   function handleCostUpdate(value) {
-    handleFieldUpdate(costTypeField.value.id, value);
-
+    store.handleFieldUpdate(costTypeField.value.id, value);
     if (value === 'free') {
-      handleFieldUpdate(priceField.value.id, null);
+      store.handleFieldUpdate(priceField.value.id, null);
     }
   }
-
-  defineExpose({
-    validate: () => validateStep(formData.value, STEP_INDEX),
-  });
 </script>
 
 <template>
   <div class="add-plan-step-3">
     <fieldset class="add-plan-step-3__fieldset">
       <FormRadioGroup
-        :model-value="formData.cost"
+        :model-value="store.formData.cost"
         :field="costTypeField"
-        :error="errors.cost"
+        :error="store.errors.cost"
         @update:model-value="handleCostUpdate"
       />
 
       <FormBaseInput
         v-if="showPriceField"
-        :model-value="formData.price"
+        :model-value="store.formData.price"
         :field="priceField"
-        :error="errors.price"
-        @update:model-value="(value) => handleFieldUpdate(priceField.id, value)"
+        :error="store.errors.price"
+        @update:model-value="(value) => store.handleFieldUpdate(priceField.id, value)"
       />
     </fieldset>
   </div>

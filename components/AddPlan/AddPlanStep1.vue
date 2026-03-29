@@ -1,20 +1,7 @@
 <script setup>
-  const STEP_INDEX = 1;
-  const { formData, handleFieldUpdate } = useAddPlanForm();
-  const { validateStep, errors } = useFormValidation();
-  const { getCategories } = usePlans();
+  const store = useAddPlanStore();
 
-  const categories = ref([]);
-  const isLoadingCategories = ref(false);
-
-  onMounted(async () => {
-    isLoadingCategories.value = true;
-    const { data, error } = await getCategories();
-    if (!error && data) {
-      categories.value = data;
-    }
-    isLoadingCategories.value = false;
-  });
+  onMounted(() => store.loadCategories());
 
   const titleField = computed(() => ({
     id: 'name',
@@ -56,52 +43,44 @@
       isVisible: true,
       required: true,
     },
-    categories: categories.value,
+    categories: store.categories,
   }));
-
-  defineExpose({
-    validate: () => validateStep(formData.value, STEP_INDEX),
-  });
 </script>
 
 <template>
   <div class="add-plan-step-1">
     <FormBaseInput
-      :model-value="formData.name"
+      :model-value="store.formData.name"
       :field="titleField"
-      :error="errors.name"
-      @update:model-value="(value) => handleFieldUpdate(titleField.id, value)"
+      :error="store.errors.name"
+      @update:model-value="(value) => store.handleFieldUpdate(titleField.id, value)"
     />
 
     <FormTextarea
-      :model-value="formData.description"
+      :model-value="store.formData.description"
       :field="descriptionField"
-      :error="errors.description"
-      @update:model-value="
-        (value) => handleFieldUpdate(descriptionField.id, value)
-      "
+      :error="store.errors.description"
+      @update:model-value="(value) => store.handleFieldUpdate(descriptionField.id, value)"
     />
 
     <FormLinksGroup
-      :model-value="formData.extra_links"
-      @update:model-value="(value) => handleFieldUpdate('extra_links', value)"
+      :model-value="store.formData.extra_links"
+      @update:model-value="(value) => store.handleFieldUpdate('extra_links', value)"
     />
 
     <FormFilePicker
-      :model-value="formData.image_urls"
+      :model-value="store.formData.image_urls"
       :field="imagesField"
-      :error="errors.image_urls"
-      @update:model-value="(value) => handleFieldUpdate(imagesField.id, value)"
+      :error="store.errors.image_urls"
+      @update:model-value="(value) => store.handleFieldUpdate(imagesField.id, value)"
     />
 
     <FormCategories
-      v-if="!isLoadingCategories"
-      :model-value="formData.categories"
+      v-if="!store.isLoadingCategories"
+      :model-value="store.formData.categories"
       :field="categoriesField"
-      :error="errors.categories"
-      @update:model-value="
-        (value) => handleFieldUpdate(categoriesField.id, value)
-      "
+      :error="store.errors.categories"
+      @update:model-value="(value) => store.handleFieldUpdate(categoriesField.id, value)"
     />
     <p v-else>Cargando categorías...</p>
   </div>

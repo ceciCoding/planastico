@@ -62,3 +62,10 @@ export interface PlanForm {
   validation_email: string;
 }
 
+export type StepNumber = 1 | 2 | 3 | 4;
+
+export interface AddPlanFormData extends PlanForm {
+  useContactEmailForManagement: boolean;
+  captchaToken: string;
+}
+

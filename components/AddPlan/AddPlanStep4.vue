@@ -1,7 +1,5 @@
 <script setup>
-  const STEP_INDEX = 4;
-  const { formData, handleFieldUpdate } = useAddPlanForm();
-  const { validateStep, errors } = useFormValidation();
+  const store = useAddPlanStore();
 
   const managementEmailField = computed(() => ({
     id: 'management-email',
@@ -36,27 +34,22 @@
   }));
 
   const handleUseContactEmailUpdate = (value) => {
-    handleFieldUpdate('useContactEmailForManagement', value);
-
+    store.handleFieldUpdate('useContactEmailForManagement', value);
     if (value) {
-      handleFieldUpdate('contact_email', formData.value.validation_email);
+      store.handleFieldUpdate('contact_email', store.formData.validation_email);
     } else {
-      handleFieldUpdate('contact_email', '');
+      store.handleFieldUpdate('contact_email', '');
     }
   };
-
-  defineExpose({
-    validate: () => validateStep(formData.value, STEP_INDEX),
-  });
 </script>
 
 <template>
   <div class="add-plan-step-4">
     <FormBaseInput
-      :model-value="formData.validation_email"
+      :model-value="store.formData.validation_email"
       :field="managementEmailField"
-      :error="errors.validation_email"
-      @update:model-value="(value) => handleFieldUpdate('validation_email', value)"
+      :error="store.errors.validation_email"
+      @update:model-value="(value) => store.handleFieldUpdate('validation_email', value)"
     />
 
     <fieldset class="add-plan-step-4__fieldset">
@@ -65,17 +58,17 @@
       </legend>
 
       <FormCheckbox
-        :model-value="formData.useContactEmailForManagement"
+        :model-value="store.formData.useContactEmailForManagement"
         :field="useContactEmailCheckboxField"
         @update:model-value="handleUseContactEmailUpdate"
       />
 
       <FormBaseInput
-        v-if="!formData.useContactEmailForManagement"
-        :model-value="formData.contact_email"
+        v-if="!store.formData.useContactEmailForManagement"
+        :model-value="store.formData.contact_email"
         :field="contactEmailField"
-        :error="errors.contact_email"
-        @update:model-value="(value) => handleFieldUpdate('contact_email', value)"
+        :error="store.errors.contact_email"
+        @update:model-value="(value) => store.handleFieldUpdate('contact_email', value)"
       />
     </fieldset>
 
@@ -85,11 +78,11 @@
         [Captcha de Cloudflare Turnstile - Por implementar]
       </p>
       <span
-        v-if="errors.captchaToken"
+        v-if="store.errors.captchaToken"
         class="add-plan-step-4__error"
         aria-live="polite"
       >
-        {{ errors.captchaToken }}
+        {{ store.errors.captchaToken }}
       </span>
     </div>
   </div>

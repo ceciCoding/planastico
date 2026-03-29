@@ -1,4 +1,4 @@
-import type { AddPlanFormData } from '~/composables/addPlanForm';
+import type { AddPlanFormData } from '~/types/plan';
 import { isValidUrl } from '~/validations/url';
 
 type ValidationCallback = (error?: Error) => void;

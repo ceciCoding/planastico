@@ -12,46 +12,11 @@
   const CLOSE_ANIMATION_MS = 300;
 
   const isOpen = defineModel('open', { type: Boolean, default: false });
-
-  const { currentStep, resetForm, goToPreviousStep, goToNextStep } =
-    useAddPlanForm();
-  const { isSubmitting, submitError, submit } = useAddPlanSubmit();
-
-  const stepRefs = Array.from({ length: TOTAL_STEPS }, () => ref(null));
-
-  const submitButtonText = computed(() =>
-    currentStep.value === TOTAL_STEPS
-      ? isSubmitting.value
-        ? 'Creando...'
-        : 'Crear plan'
-      : 'Siguiente'
-  );
-
-  const handleGoBack = () =>
-    currentStep.value === 1 ? handleCancel() : goToPreviousStep();
+  const store = useAddPlanStore();
 
   const handleCancel = () => {
     isOpen.value = false;
-    setTimeout(() => {
-      resetForm();
-      submitError.value = '';
-    }, CLOSE_ANIMATION_MS);
-  };
-
-  const handleNext = async () => {
-    const activeStep = stepRefs[currentStep.value - 1].value;
-    const isValid = await activeStep?.validate?.();
-    if (!isValid) return;
-
-    if (currentStep.value === TOTAL_STEPS) {
-      const success = await submit();
-      if (success) {
-        await refreshNuxtData('plans');
-        handleCancel();
-      }
-    } else {
-      goToNextStep();
-    }
+    setTimeout(() => store.resetForm(), CLOSE_ANIMATION_MS);
   };
 </script>
 
@@ -69,59 +34,10 @@
         class="add-plan-modal__content"
         aria-label="Añadir nuevo plan"
       >
-        <AddPlanStepperHeader
-          :current-step="currentStep"
-          @go-back="handleGoBack"
-        />
         <DialogDescription class="sr-only">
-          <span>Paso {{ currentStep }} de {{ TOTAL_STEPS }}</span>
+          <span>Paso {{ store.currentStep }} de {{ TOTAL_STEPS }}</span>
         </DialogDescription>
-
-        <form
-          class="add-plan-modal__form"
-          novalidate
-          @submit.prevent="handleNext"
-        >
-          <AddPlanStep1
-            v-if="currentStep === 1"
-            :ref="stepRefs[0]"
-          />
-          <AddPlanStep2
-            v-if="currentStep === 2"
-            :ref="stepRefs[1]"
-          />
-          <AddPlanStep3
-            v-if="currentStep === 3"
-            :ref="stepRefs[2]"
-          />
-          <AddPlanStep4
-            v-if="currentStep === 4"
-            :ref="stepRefs[3]"
-          />
-
-          <div
-            v-if="submitError"
-            class="add-plan-modal__error"
-            role="alert"
-          >
-            {{ submitError }}
-          </div>
-
-          <div class="add-plan-modal__actions">
-            <BaseButton
-              type="submit"
-              :disabled="isSubmitting"
-            >
-              {{ submitButtonText }}
-            </BaseButton>
-            <BaseButton
-              @click="handleCancel"
-              color="white"
-            >
-              Cancelar
-            </BaseButton>
-          </div>
-        </form>
+        <AddPlanStepper @cancel="handleCancel" />
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
