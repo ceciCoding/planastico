@@ -175,5 +175,37 @@ export const usePlans = () => {
     }
   };
 
-  return { createPlan, getCategories, getPlanById, getPlans };
+  const getMisPlanes = async (): ApiResult<PlanWithRelations[]> => {
+    try {
+      if (!user.value) return { data: [], error: null };
+
+      const { data, error } = await supabase
+        .from('plans')
+        .select(
+          `
+          *,
+          plan_categories (
+            category_id,
+            categories (
+              id,
+              name,
+              slug
+            )
+          ),
+          plan_images (storage_path, position)
+        `
+        )
+        .eq('user_id', user.value.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      return { data, error: null };
+    } catch (error: unknown) {
+      console.error('Error al obtener mis planes:', error);
+      return { data: null, error: (error as Error).message };
+    }
+  };
+
+  return { createPlan, getCategories, getPlanById, getPlans, getMisPlanes };
 };
