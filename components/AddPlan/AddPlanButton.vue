@@ -33,6 +33,10 @@
     box-shadow: var(--planastico-shadow);
     background: var(--planastico-yellow);
 
+    @media (min-width: 768px) {
+      display: none;
+    }
+
     &:active {
       box-shadow: none;
       transform: translateY(2px);
