@@ -54,3 +54,66 @@ CREATE TABLE public.plans (
   CONSTRAINT events_pkey PRIMARY KEY (id),
   CONSTRAINT events_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
 );
+
+CREATE TABLE public.saved_plans (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL,
+  plan_id uuid NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT saved_plans_pkey PRIMARY KEY (id),
+  CONSTRAINT saved_plans_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT saved_plans_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES public.plans(id),
+  CONSTRAINT saved_plans_unique UNIQUE (user_id, plan_id)
+);
+
+-- ============================================================
+-- ROW LEVEL SECURITY
+-- ============================================================
+-- All tables have RLS enabled. Default deny — access only via explicit policies.
+-- The create_plan_with_images RPC uses SECURITY DEFINER and bypasses RLS,
+-- so INSERT policies on plans/plan_categories/plan_images are intentionally absent.
+
+-- categories: public read only
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "categories_public_read" ON public.categories
+  FOR SELECT USING (true);
+
+-- plans: public can read validated plans; authenticated owners can read/update/delete their own
+ALTER TABLE public.plans ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "plans_public_read" ON public.plans
+  FOR SELECT USING (validated = true);
+
+CREATE POLICY "plans_owner_read" ON public.plans
+  FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "plans_owner_update" ON public.plans
+  FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "plans_owner_delete" ON public.plans
+  FOR DELETE USING (auth.uid() = user_id);
+
+-- plan_categories: public read only (writes managed via RPC)
+ALTER TABLE public.plan_categories ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "plan_categories_public_read" ON public.plan_categories
+  FOR SELECT USING (true);
+
+-- plan_images: public read only (writes managed via RPC)
+ALTER TABLE public.plan_images ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "plan_images_public_read" ON public.plan_images
+  FOR SELECT USING (true);
+
+-- saved_plans: users can only see and manage their own entries
+ALTER TABLE public.saved_plans ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "saved_plans_owner_select" ON public.saved_plans
+  FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "saved_plans_owner_insert" ON public.saved_plans
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "saved_plans_owner_delete" ON public.saved_plans
+  FOR DELETE USING (auth.uid() = user_id);
