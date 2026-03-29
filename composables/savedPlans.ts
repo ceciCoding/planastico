@@ -20,7 +20,17 @@ export const useSavedPlans = () => {
 
       const { data, error } = await supabase
         .from('saved_plans')
-        .select('*, plans(*)')
+        .select(
+          `
+          *,
+          plans (
+            id, name, description, extra_links, address, place, meeting_link,
+            frequency, start_date, end_date, recurrency, start_time, end_time,
+            cost, price, contact_email, user_id, validated, email_verified,
+            created_at, updated_at
+          )
+        `
+        )
         .eq('user_id', user.value.id)
         .order('created_at', { ascending: false });
 
