@@ -1,7 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV !== 'production' },
+  sourcemap: {
+    server: false,
+    client: false,
+  },
+  routeRules: {
+    '/**': {
+      headers: {
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'X-XSS-Protection': '1; mode=block',
+      },
+    },
+  },
   modules: ['@nuxt/eslint', '@nuxt/image', 'reka-ui/nuxt', '@nuxtjs/supabase', '@pinia/nuxt', 'nuxt-turnstile'],
   turnstile: {
     siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY ?? '',
