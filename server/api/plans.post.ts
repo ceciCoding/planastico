@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
   } = await supabase.auth.getUser();
 
   const validationCode = !user
-    ? Math.floor(100000 + Math.random() * 900000).toString()
+    ? crypto.randomInt(100000, 1000000).toString()
     : null;
 
   const planPayload = {
@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
   });
 
   if (error) {
-    throw createError({ statusCode: 500, message: error.message });
+    throw createError({ statusCode: 500, message: 'Error al crear el plan. Inténtalo de nuevo.' });
   }
 
   return { data };
