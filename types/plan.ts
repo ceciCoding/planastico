@@ -62,6 +62,14 @@ export interface PlanForm {
   validation_email: string;
 }
 
+/** DB model — mirrors the `saved_plans` table in Supabase */
+export interface SavedPlan {
+  id: string;
+  user_id: string;
+  plan_id: string;
+  created_at: string;
+}
+
 export type StepNumber = 1 | 2 | 3 | 4;
 
 export interface AddPlanFormData extends PlanForm {
