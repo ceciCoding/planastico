@@ -8,6 +8,7 @@ export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 /** DB model — mirrors the `plans` table in Supabase */
 export interface Plan {
   id: string;
+  slug: string;
   name: string;
   description: string;
   extra_links: string[];
@@ -85,6 +86,7 @@ export interface PlanWithRelations extends Plan {
 /** View model for the PlanCard component — pre-formatted for display */
 export interface PlanCardData {
   id: string;
+  slug: string;
   title: string;
   address: string | null;
   description: string;

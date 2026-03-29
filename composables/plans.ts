@@ -29,13 +29,13 @@ export const usePlans = () => {
     }
   };
 
-  const getPlanById = async (planId: string): ApiResult<PlanWithRelations> => {
+  const getPlanBySlug = async (slug: string): ApiResult<PlanWithRelations> => {
     try {
       const { data, error } = await supabase
         .from('plans')
         .select(
           `
-          id, name, description, extra_links, address, place, meeting_link,
+          id, slug, name, description, extra_links, address, place, meeting_link,
           frequency, start_date, end_date, recurrency, start_time, end_time,
           cost, price, contact_email, user_id, validated, email_verified,
           created_at, updated_at,
@@ -50,7 +50,7 @@ export const usePlans = () => {
           plan_images (storage_path, position)
         `
         )
-        .eq('id', planId)
+        .eq('slug', slug)
         .single();
 
       if (error) throw error;
@@ -68,7 +68,7 @@ export const usePlans = () => {
         .from('plans')
         .select(
           `
-          id, name, description, extra_links, address, place, meeting_link,
+          id, slug, name, description, extra_links, address, place, meeting_link,
           frequency, start_date, end_date, recurrency, start_time, end_time,
           cost, price, contact_email, user_id, validated, email_verified,
           created_at, updated_at,
@@ -125,7 +125,7 @@ export const usePlans = () => {
         .from('plans')
         .select(
           `
-          id, name, description, extra_links, address, place, meeting_link,
+          id, slug, name, description, extra_links, address, place, meeting_link,
           frequency, start_date, end_date, recurrency, start_time, end_time,
           cost, price, contact_email, user_id, validated, email_verified,
           created_at, updated_at,
@@ -152,5 +152,5 @@ export const usePlans = () => {
     }
   };
 
-  return { getCategories, getPlanById, getPlans, getMisPlanes };
+  return { getCategories, getPlanBySlug, getPlans, getMisPlanes };
 };

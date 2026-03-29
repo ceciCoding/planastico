@@ -48,6 +48,7 @@ export const usePlanAdapter = () => {
 
     return {
       id: plan.id,
+      slug: plan.slug,
       title: plan.name,
       address: plan.address,
       description: plan.description,
@@ -60,5 +61,5 @@ export const usePlanAdapter = () => {
     };
   };
 
-  return { toPlanCardData };
+  return { toPlanCardData, getImageUrl };
 };

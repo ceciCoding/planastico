@@ -23,7 +23,7 @@
   >
     <NuxtLink
       class="plan-card__cover-link"
-      :to="`/plan/${plan.id}`"
+      :to="`/plan/${plan.slug}`"
       :aria-label="plan.title"
     />
 

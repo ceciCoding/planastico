@@ -49,7 +49,8 @@
 
   const handleShare = async (planId) => {
     if (!import.meta.client) return;
-    const url = `${window.location.origin}/plan/${planId}`;
+    const plan = plans.value.find((p) => p.id === planId);
+    const url = `${window.location.origin}/plan/${plan?.slug ?? planId}`;
     if (navigator.share) {
       await navigator.share({ url });
     } else {
