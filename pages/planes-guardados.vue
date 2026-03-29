@@ -1,12 +1,7 @@
 <script setup>
-  definePageMeta({ layout: 'default' });
+  definePageMeta({ layout: 'default', middleware: 'auth' });
 
-  const user = useSupabaseUser();
   const { getSavedPlans } = useSavedPlans();
-
-  if (!user.value) {
-    await navigateTo('/auth');
-  }
 
   const {
     data: savedData,
