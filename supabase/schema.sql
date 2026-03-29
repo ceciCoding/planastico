@@ -4,6 +4,44 @@
 -- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
 
+-- Extensions
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
+-- ============================================================
+-- FUNCTIONS
+-- ============================================================
+
+-- Generates a URL-safe slug from a plan name, appending a counter on collision
+CREATE OR REPLACE FUNCTION generate_unique_slug(base_name text)
+RETURNS text
+LANGUAGE plpgsql
+SET search_path TO 'public', 'pg_temp'
+AS $$
+DECLARE
+  base_slug text;
+  candidate text;
+  counter   int := 0;
+BEGIN
+  base_slug := lower(
+    regexp_replace(
+      regexp_replace(unaccent(base_name), '[^a-zA-Z0-9\s]', '', 'g'),
+      '\s+', '-', 'g'
+    )
+  );
+  base_slug := trim(both '-' from base_slug);
+  base_slug := regexp_replace(base_slug, '-+', '-', 'g');
+  IF base_slug = '' THEN base_slug := 'plan'; END IF;
+
+  candidate := base_slug;
+  WHILE EXISTS (SELECT 1 FROM plans WHERE slug = candidate) LOOP
+    counter   := counter + 1;
+    candidate := base_slug || '-' || counter;
+  END LOOP;
+
+  RETURN candidate;
+END;
+$$;
+
 CREATE TABLE public.categories (
   id integer NOT NULL DEFAULT nextval('categories_id_seq'::regclass),
   name text NOT NULL UNIQUE,
@@ -29,6 +67,7 @@ CREATE TABLE public.plan_images (
 );
 CREATE TABLE public.plans (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
+  slug text NOT NULL UNIQUE,
   name text NOT NULL CHECK (char_length(name) <= 70),
   description text NOT NULL CHECK (char_length(description) <= 3000),
   address text CHECK (char_length(address) <= 400),
