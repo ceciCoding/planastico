@@ -1,25 +1,9 @@
-import type { Plan, PlanForm, ImagePath } from '~/types/plan';
-import type { Category } from '~/types/fields';
+import type { Plan, PlanForm, ImagePath, PlanWithRelations } from '~/types/plan';
 
 interface PlanFilters {
   startDate?: string;
   endDate?: string;
   categories?: number[];
-}
-
-interface CategoryWithSlug extends Category {
-  slug: string;
-}
-
-interface PlanWithRelations extends Plan {
-  plan_categories: {
-    category_id: number;
-    categories: CategoryWithSlug;
-  }[];
-  plan_images: {
-    storage_path: string;
-    position: number;
-  }[];
 }
 
 type ApiResult<T> = Promise<{ data: T | null; error: string | null }>;

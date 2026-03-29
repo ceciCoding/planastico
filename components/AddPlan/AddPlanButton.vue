@@ -32,6 +32,7 @@
     border-radius: 50%;
     box-shadow: var(--planastico-shadow);
     background: var(--planastico-yellow);
+    z-index: var(--planastico-mid-z-index);
 
     @media (min-width: 768px) {
       display: none;

@@ -22,6 +22,7 @@
   --planastico-border-l: 5px solid var(--planastico-cold-black);
   --planastico-border-xl: 6px solid var(--planastico-cold-black);
   --planastico-max-z-index: 9999;
+  --planastico-mid-z-index: 9998;
 }
 
 *,

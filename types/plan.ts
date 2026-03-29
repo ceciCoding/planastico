@@ -1,3 +1,5 @@
+import type { Category } from '~/types/fields';
+
 export type PlaceType = 'in-person' | 'online' | 'hybrid';
 export type FrequencyType = 'once' | 'recurring';
 export type CostType = 'free' | 'pay-what-you-want' | 'fixed-price';
@@ -68,6 +70,32 @@ export interface SavedPlan {
   user_id: string;
   plan_id: string;
   created_at: string;
+}
+
+/** Plan from Supabase with joined categories and images */
+export interface PlanWithRelations extends Plan {
+  plan_categories: {
+    category_id: number;
+    categories: Category & { slug: string };
+  }[];
+  plan_images: {
+    storage_path: string;
+    position: number;
+  }[];
+}
+
+/** View model for the PlanCard component — pre-formatted for display */
+export interface PlanCardData {
+  id: string;
+  title: string;
+  address: string | null;
+  description: string;
+  dateLabel: string;
+  timeLabel: string | null;
+  categoryName: string;
+  priceLabel: string;
+  imageUrl?: string;
+  isSaved: boolean;
 }
 
 export type StepNumber = 1 | 2 | 3 | 4;
