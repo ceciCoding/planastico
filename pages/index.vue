@@ -1,4 +1,5 @@
 <script setup>
+  definePageMeta({ layout: 'default' })
   import AddPlanButton from '@/components/AddPlan/AddPlanButton.vue';
 
   const { getPlans } = usePlans();
