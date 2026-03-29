@@ -1,8 +1,7 @@
 -- Planástico Database Schema
--- Run this SQL in your Supabase SQL Editor to set up the database
-
--- WARNING: This schema is for context only and is not meant to be run.
--- Table order and constraints may not be valid for execution.
+-- Source of truth for table definitions, RLS policies, and DB functions.
+-- Apply changes via Supabase MCP (apply_migration) or the SQL Editor — not by running this file directly,
+-- as table order and some constraints may require manual sequencing.
 
 -- Extensions
 CREATE EXTENSION IF NOT EXISTS unaccent;

@@ -42,12 +42,18 @@ export default defineEventHandler(async (event) => {
   } = await supabase.auth.getUser();
 
   const validationCode = !user
-    ? crypto.randomInt(100000, 1000000).toString()
+    ? crypto.randomBytes(32).toString('hex')
+    : null;
+
+  const validationCodeHash = validationCode
+    ? Buffer.from(
+        await crypto.subtle.digest('SHA-256', new TextEncoder().encode(validationCode))
+      ).toString('hex')
     : null;
 
   const planPayload = {
     ...plan,
-    validation_code: validationCode,
+    validation_code: validationCodeHash,
     user_id: user?.id ?? null,
     validated: true,
     email_verified: !!user,
