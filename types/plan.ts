@@ -23,8 +23,6 @@ export interface Plan {
   cost: CostType;
   price: number | null;
   contact_email: string | null;
-  validation_email: string | null;
-  validation_code: string | null;
   user_id: string | null;
   validated: boolean;
   email_verified: boolean;
